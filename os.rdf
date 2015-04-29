@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:os="http://redgates.com/2013/11/os"
+    >
+
+  <owl:Ontology rdf:about="http://redgates.com/2013/11/os">
+    <dc:title>The RedX Operating System Vocabulary</dc:title>
+    <dc:description>
+    RDF schema for the RedX operating system diagnostics vocabulary.
+    </dc:description>
+    <dc:creator>Karl Redgate</dc:creator>
+    <dc:date>2013-11-04</dc:date>
+  </owl:Ontology>
+
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Unix-like'>
+    <rdfs:label>unix-like</rdfs:label>
+    <dc:title>Generic Unix like operating system</dc:title>
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/POSIX'>
+    <rdfs:label>posix</rdfs:label>
+    <dc:title>Generic POSIX conforming operating system</dc:title>
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Linux_(operating_system)'>
+    <rdfs:label>Linux</rdfs:label>
+    <dc:title>Generic Linux Distro</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Fedora_Project' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Fedora_(operating_system)'>
+    <rdfs:label>Fedora</rdfs:label>
+    <dc:title>RedHat Fedora distro</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Fedora_Project' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Red_Hat_Enterprise_Linux'>
+    <rdfs:label>RHEL</rdfs:label>
+    <dc:title>RedHat Enterprize Linux distro</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Red_Hat' />
+  </os:Platform>
+
+  <os:Platform rdf:about=''>
+    <rdfs:label>RHEL6</rdfs:label>
+    <dc:title>RedHat Enterprize Linux distro, version 6.x</dc:title>
+  </os:Platform>
+
+  <os:Platform rdf:about=''>
+    <rdfs:label>RHEL7</rdfs:label>
+    <dc:title>RedHat Enterprize Linux distro, version 7</dc:title>
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/CentOS'>
+    <rdfs:label>CentOS</rdfs:label>
+    <dc:title>CentOS distro</dc:title>
+    <os:derivedFrom rdf:resource='http://dbpedia.org/resource/Red_Hat_Enterprise_Linux' />
+  </os:Platform>
+  <!-- specific releases -->
+
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Debian'>
+    <rdfs:label>Debian</rdfs:label>
+    <dc:title>Generic Debian distro</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Canonical_Ltd.' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Ubuntu_(operating_system)'>
+    <rdfs:label>Ubuntu</rdfs:label>
+    <dc:title>Canonical Ubuntu distro</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Canonical_Ltd.' />
+    <os:derivedFrom rdf:resource='http://dbpedia.org/resource/Debian' />
+  </os:Platform>
+  <!-- specific releases -->
+
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Microsoft_Windows'>
+    <rdfs:label>Windows</rdfs:label>
+    <dc:title>Microsoft Windows Operating System</dc:title>
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Windows_Server'>
+    <rdfs:label>windowsserver</rdfs:label>
+    <dc:title>Microsoft Windows Server</dc:title>
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Windows_Server_2003'>
+    <rdfs:label>W2K3</rdfs:label>
+    <dc:title>Microsoft Windows Server 2003</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Microsoft' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Windows_Server_2008'>
+    <rdfs:label>W2K8</rdfs:label>
+    <dc:title>Microsoft Windows Server 2008</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Microsoft' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Windows_Server_2008_R2'>
+    <rdfs:label>W2K8R2</rdfs:label>
+    <dc:title>Microsoft Windows Server 2008 R2</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Microsoft' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Windows_Server_2012'>
+    <rdfs:label>W2K12</rdfs:label>
+    <dc:title>Microsoft Windows Server 2012</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Microsoft' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Windows_Server_2012_R2'>
+    <rdfs:label>W2K12R2</rdfs:label>
+    <dc:title>Microsoft Windows Server 2012 R2</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Microsoft' />
+  </os:Platform>
+
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Darwin_(operating_system)'>
+    <rdfs:label>darwin</rdfs:label>
+    <dc:title>Darwin is the open source version of MacOS X</dc:title>
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/OS_X'>
+    <rdfs:label>osx</rdfs:label>
+    <dc:title>MacOS X</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Apple_Inc.' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Mac_OS_X_Snow_Leopard'>
+    <rdfs:label>snowleopard</rdfs:label>
+    <dc:title>MacOS X Snow Leopard</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Apple_Inc.' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Mac_OS_X_Lion'>
+    <rdfs:label>lion</rdfs:label>
+    <dc:title>MacOS X Lion</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Apple_Inc.' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/OS_X_Mountain_Lion'>
+    <rdfs:label>mountainlion</rdfs:label>
+    <dc:title>MacOS X Mountain Lion</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Apple_Inc.' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/OS_X_Mavericks'>
+    <rdfs:label>mavericks</rdfs:label>
+    <dc:title>MacOS X Mavericks</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Apple_Inc.' />
+  </os:Platform>
+
+</rdf:RDF>
+<!--
+  - vim:autoindent
+  - vim:expandtab
+  -->

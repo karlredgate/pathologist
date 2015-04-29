@@ -1,0 +1,90 @@
+#!/usr/bin/python
+#
+# post-diag - kredgate - 12-04-2013
+#
+# Post a diagnostic archive to S3 using credentials
+# provided by the appliance service at Carbonite.
+#
+# The archive is put in the diagnostics bucket under
+# a path using the SMBIOS system UUID.
+#
+
+import sys
+sys.path.append('/usr/share/pyshared')
+
+import os
+import sys
+from subprocess import *
+from syslog import *
+
+import boto
+import json
+import urllib2
+import urllib
+
+from carboniteappliance.config import load_config
+
+config = load_config()
+
+
+def system_uuid():
+    with open("/var/run/inventory/system-uuid", "r") as fd:
+        uuid = fd.read().rstrip()
+    return uuid
+
+openlog( ident='post-diag', logoption=LOG_PID, facility=LOG_CRON )
+
+if len(sys.argv) < 2:
+    syslog( LOG_ERR, "called without filename argument" )
+    print >> sys.stderr, 'usage: post-diag <filename>'
+    sys.exit( 1 )
+
+filename = sys.argv[1]
+print >> sys.stderr, 'attempting upload of ' + filename
+
+if os.path.exists(filename) is False:
+    syslog( LOG_ERR, "called with invalid filename argument" )
+    print >> sys.stderr, filename + ' does not exist'
+    sys.exit( 1 )
+
+#
+# Example curl request:
+#
+# curl --verbose
+#      --trace-ascii /dev/stdout
+#      --data ''
+#      --header 'Content-Type: application/json'
+#   'http://api.maytag.carbonite.com/v1/diagnostics/appliances/'$systemid'/log'
+#
+
+systemid = system_uuid()
+# systemid = 'aaaabbbb-cccc-dddd-eeee-ffff00000000'
+log_token_url = config.APP_SERVER_URL + '/v1/diagnostics/appliances/' + systemid + '/log'
+
+# what exceptions should be caught here
+try:
+    request = urllib2.Request( url=log_token_url, data='' )
+    fd = urllib2.urlopen( request )
+except urllib2.URLError as e:
+    print >> sys.stderr, "failed to get token: "
+    raise
+# response = urllib2.urlopen( log_token_url, data, {'Content-Type':'application/json'} )
+token = json.loads( fd.read() )
+
+connection = boto.connect_s3(
+    aws_access_key_id     = token['accessKey'],
+    aws_secret_access_key = token['secretKey'],
+    security_token        = token['sessionToken'],
+    host                  = token['host']
+)
+
+bucket = connection.get_bucket( token['bucket'], validate=False )
+
+keyname = token['root'] + '/' + os.path.basename(filename)
+key = bucket.new_key( keyname )
+syslog( LOG_ERR, 'uploading ' + filename + ' as key ' + keyname )
+print 'uploading ' + filename + ' as key ' + keyname
+result = key.set_contents_from_filename( filename )
+
+# vim:autoindent
+# vim:expandtab

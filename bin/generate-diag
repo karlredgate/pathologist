@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# Call diag generation script using sudo - since it
+# requires root access to get at some system information.
+#
+
+archive_type=${1:-CallHome}
+sudo /usr/libexec/carbonite/diagnostics/queue-diagnostic-archive $archive_type
+
+# vim:autoindent
+# vim:expandtab

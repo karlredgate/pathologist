@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# Install the packages necessary to do development on CentOS based
+# appliances.  This only works with yum/rpm.
+#
+
+function die() {
+    echo "Failed to install development tools ($*)"
+    exit 1
+}
+
+yum --quiet groupinstall -y "Development tools" || die "DevTools group"
+
+# The python tools are required for the appliance packge
+# redhat-lsb-core is required for diagnostics builds
+for package in python-devel python-setuptools redhat-lsb-core fdupes
+do
+    yum --quiet install -y $package || die $package
+done
+
+# vim:autoindent
+# vim:expandtab

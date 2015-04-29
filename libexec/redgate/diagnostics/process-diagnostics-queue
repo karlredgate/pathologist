@@ -1,0 +1,24 @@
+#!/bin/bash
+
+exec >> /var/log/redgate/diagnostics-queue.log 2>&1
+
+# This can go away when we go to CentOS since we can use
+# /etc/sysconfig/
+[ -f /etc/profile.d/proxy.sh ] && source /etc/profile.d/proxy.sh
+
+shopt -s nullglob
+
+tag=$(basename $0)
+
+for archive in /var/spool/redgate/diagnostics/*.zip
+do
+    post-diag $archive || {
+        logger -t $tag -p cron.err "failed to upload diag archive - $archive"
+        continue
+    }
+    rm -f $archive
+    logger -t $tag -p cron.notice "uploaded diag archive - $archive"
+done
+
+# vim:autoindent
+# vim:expandtab

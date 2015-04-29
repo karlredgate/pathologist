@@ -1,0 +1,5 @@
+redx-diagnostics (__version__) __dist__; urgency=low
+
+  * Initial release.
+
+ -- Karl Redgate <Karl.Redgate@gmail.com>  Sun, 31 Aug 2014 10:00:00 -0400

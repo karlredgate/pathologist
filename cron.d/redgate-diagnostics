@@ -1,0 +1,8 @@
+# Mailto should change to redgates.com email address.
+# Need to enable email services in appliance
+#
+MAILTO=root
+
+*/2 * * * *  root	/usr/libexec/redx/diagnostics/process-diagnostics-queue
+*/5 * * * *  root	/usr/libexec/redx/diagnostics/dialin-poll
+01 03 * * *  root	/usr/libexec/redx/diagnostics/agent_log_cleanup.py

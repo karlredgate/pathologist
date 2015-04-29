@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:dialin="http://carbonite.com/2013/12/dialin"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <start>
+    <ref name="rdf"/>
+  </start>
+
+  <define name="rdf">
+    <element name="rdf:RDF">
+      <optional><ref name="ontology"/></optional>
+      <!-- <interleave> -->
+        <ref name="ca"/>
+        <ref name="dh"/>
+        <ref name="ssh"/>
+        <ref name="server"/>
+        <optional><ref name="client"/></optional>
+      <!-- </interleave> -->
+    </element>
+  </define>
+
+  <define name="ontology">
+    <element name="owl:Ontology">
+      <interleave>
+	<ref name="about" />
+        <ref name="title"/>
+        <ref name="description"/>
+        <ref name="date"/>
+        <ref name="creator"/>
+      </interleave>
+    </element>
+  </define>
+
+  <define name="ca">
+    <element name="dialin:CA">
+	<ref name="about" />
+        <optional><ref name="description"/></optional>
+        <ref name="certificate"/>
+    </element>
+  </define>
+
+  <define name="client">
+    <element name="dialin:Client">
+	<ref name="about" />
+        <optional><ref name="description"/></optional>
+        <ref name="certificate"/>
+    </element>
+  </define>
+
+  <define name="dh">
+    <element name="dialin:DH">
+	<ref name="about" />
+        <optional><ref name="description"/></optional>
+        <ref name="key"/>
+    </element>
+  </define>
+
+  <define name="ssh">
+    <element name="dialin:SSH">
+	<ref name="about" />
+        <optional><ref name="description"/></optional>
+        <ref name="key"/>
+    </element>
+  </define>
+
+  <define name="server">
+    <element name="dialin:Server">
+	<ref name="about" />
+        <optional><ref name="description"/></optional>
+        <ref name="address"/>
+    </element>
+  </define>
+
+  <define name="certificate">
+    <element name="dialin:certificate">
+      <data type="string">
+      </data>
+    </element>
+  </define>
+
+  <define name="key">
+    <element name="dialin:key">
+      <data type="string">
+      </data>
+    </element>
+  </define>
+
+  <define name="address">
+    <element name="dialin:address">
+      <data type="string">
+      </data>
+    </element>
+  </define>
+
+  <define name="about">
+     <attribute name="rdf:about"><text/></attribute>
+  </define>
+
+  <define name="title">
+    <element name="dc:title">
+      <text/>
+    </element>
+  </define>
+
+  <define name="description">
+    <element name="dc:description">
+      <text/>
+    </element>
+  </define>
+
+  <define name="creator">
+    <element name="dc:creator">
+      <text/>
+    </element>
+  </define>
+
+  <define name="date">
+    <element name="dc:date">
+      <text/>
+    </element>
+  </define>
+
+</grammar>

@@ -1,0 +1,87 @@
+#!/usr/bin/python
+#
+# post-s3 - kredgate - 01-23-2014
+#
+# Post a file to a specific diagnostic bucket on S3 using
+# credentials provided by the appliance service at Carbonite.
+#
+# The file is put in the diagnostics bucket under
+# a path using the SMBIOS system UUID.
+#
+
+import sys
+sys.path.append('/usr/share/pyshared')
+
+import os
+import sys
+from subprocess import *
+from syslog import *
+
+import boto
+import simplejson
+import urllib2
+import urllib
+
+from carboniteappliance.config import load_config
+
+config = load_config()
+
+openlog( 'post-s3', LOG_PID, LOG_CRON )
+
+if len(sys.argv) < 2:
+    syslog( LOG_ERR, "called without filename argument" )
+    print >> sys.stderr, 'usage: post-s3 <uuid> <filename>'
+    sys.exit( 1 )
+
+systemid = sys.argv[1]
+# validate uuid format - seems to error on api if it is not
+filename = sys.argv[2]
+
+# accept third arg as target resource name on S3, but
+# if not just use the basename of the file being posted.
+try:
+    target = sys.argv[3]
+except:
+    target = os.path.basename(filename)
+
+if sys.stderr.isatty():
+    print >> sys.stderr, 'attempting upload of ' + filename
+
+if os.path.exists(filename) is False:
+    syslog( LOG_ERR, "called with invalid filename argument: " + filename )
+    print >> sys.stderr, filename + ' does not exist'
+    sys.exit( 1 )
+
+api_uri = config.APP_SERVER_URL + '/v1'
+log_token_url = api_uri + '/diagnostics/appliances/' + systemid + '/log'
+
+# what exceptions should be caught here
+try:
+    request = urllib2.Request( url=log_token_url, data='' )
+    fd = urllib2.urlopen( request )
+except urllib2.URLError as e:
+    print >> sys.stderr, "failed to get token: "
+    raise
+
+token = simplejson.loads( fd.read() )
+
+connection = boto.connect_s3(
+    aws_access_key_id     = token['accessKey'],
+    aws_secret_access_key = token['secretKey'],
+    security_token        = token['sessionToken'],
+    host                  = token['host']
+)
+
+bucket = connection.get_bucket( token['bucket'], validate=False )
+
+keyname = token['root'] + '/' + target
+key = bucket.new_key( keyname )
+
+syslog( LOG_ERR, 'uploading ' + filename + ' as key ' + keyname )
+if sys.stdout.isatty():
+    print 'uploading ' + filename + ' as key ' + keyname
+
+result = key.set_contents_from_filename( filename )
+
+# vim:autoindent
+# vim:expandtab

@@ -1,0 +1,359 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:dbpedia="http://dbpedia.org/resource/"
+    xmlns:hw="http://redgates.com/2014/1/hardware/"
+    >
+
+  <owl:Ontology rdf:about="http://redgates.com/2014/1/hardware">
+    <dc:title>The Carbonite Lab Vocabulary</dc:title>
+    <dc:description>
+    RDF schema for the Carbonite lab vocabulary.
+
+    The Generic infomation should be split into its own file, and the
+    specific hardware that is present should not have any of the
+    generic information.
+
+    It would be better if the Ontology represented hw:DUT, and hw:testhost as
+    rdf:type - and they were all same as hw:Host - but I need to have RDF
+    queries that generate XML that can then be XSLTed.
+    </dc:description>
+    <dc:creator>Karl Redgate</dc:creator>
+    <dc:date>2014-01-22</dc:date>
+  </owl:Ontology>
+
+
+  <hw:ProcessorFamily rdf:about="http://dbpedia.org/resource/Xeon">
+    <dc:description>
+    Intel Xeon microprocessors.
+
+    The Wikipedia page has a good listing of the code names and family
+    organization.
+
+    http://en.wikipedia.org/wiki/List_of_Intel_Xeon_microprocessors
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Intel" />
+  </hw:ProcessorFamily>
+
+  <hw:ProcessorMicroarchitecture rdf:about="http://dbpedia.org/resource/Nehalem_(microarchitecture)">
+    <dc:description>
+    Nehalem is the codename for an Intel processor microarchitecture,
+    successor to the Core microarchitecture. Nehalem processors use the
+    45 nm process.  Nehalem, a recycled Intel code name, refers to an
+    architecture that differs radically from Netburst, while retaining
+    some of the latter's minor features. Nehalem-based microprocessors
+    use higher clock speeds and are more energy-efficient than Penryn
+    microprocessors. Hyper-threading is reintroduced, along with a
+    reduction in L2 cache size, as well as an enlarged L3 cache that is
+    shared by all cores.
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Intel" />
+  </hw:ProcessorMicroarchitecture>
+
+  <hw:ProcessorMicroarchitecture rdf:about="http://dbpedia.org/resource/Westmere_(microarchitecture)">
+    <dc:description>
+    32 nm shrink of the Nehalem microarchitecture with several new features.
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Intel" />
+  </hw:ProcessorMicroarchitecture>
+
+  <hw:ProcessorMicroarchitecture rdf:about="http://dbpedia.org/resource/Sandy_Bridge_(microarchitecture)">
+    <dc:description>
+    Sandy Bridge is the codename for a microarchitecture developed by
+    Intel beginning in 2005 for central processing units in computers to
+    replace the Nehalem microarchitecture. Intel demonstrated a Sandy
+    Bridge processor in 2009, and released first products based on the
+    architecture in January 2011 under the Core brand.
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Intel" />
+  </hw:ProcessorMicroarchitecture>
+
+  <hw:ProcessorMicroarchitecture rdf:about="http://dbpedia.org/resource/Ivy_Bridge_(microarchitecture)">
+    <dc:description>
+    Ivy Bridge is the codename for a line of processors based on the
+    22 nm manufacturing process developed by Intel. The name is also
+    applied more broadly to the 22 nm die shrink of the Sandy Bridge
+    microarchitecture based on FinFET ("3D") tri-gate transistors,
+    which is also used in the Xeon and Core i7 Ivy Bridge-EX (Ivytown),
+    Ivy Bridge-EP and Ivy Bridge-E microprocessors released in 2013.
+
+    Ivy Bridge processors are backwards compatible with the Sandy
+    Bridge platform, but such systems might require a firmware update
+    (vendor specific).
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Intel" />
+  </hw:ProcessorMicroarchitecture>
+
+  <hw:ProcessorMicroarchitecture rdf:about="http://dbpedia.org/resource/Haswell_(microarchitecture)">
+    <dc:description>
+    Haswell is the codename for a processor microarchitecture developed
+    by Intel as the successor to the Ivy Bridge architecture. It
+    uses the 22 nm process. Intel officially announced CPUs with this
+    microarchitecture on June 4, 2013 at Computex Taipei 2013.
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Intel" />
+  </hw:ProcessorMicroarchitecture>
+
+  <hw:ProcessorMicroarchitecture rdf:about="http://dbpedia.org/resource/Broadwell_(microarchitecture)">
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/Rockwell_(microarchitecture)"/>
+    <dc:description>
+    14 nm shrink of the Haswell microarchitecture, expected around 2014. Formerly called Rockwell.
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Intel" />
+  </hw:ProcessorMicroarchitecture>
+
+  <hw:ProcessorMicroarchitecture rdf:about="http://dbpedia.org/resource/Skylake_(microarchitecture)">
+    <dc:description>
+    Future Intel microarchitecture, based on a 14 nm process.
+
+    There are no official details regarding this microarchitecture's
+    development. The first Skylake processors are expected in 2015
+    or 2016.
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Intel" />
+  </hw:ProcessorMicroarchitecture>
+
+  <hw:ProcessorMicroarchitecture rdf:about="http://dbpedia.org/resource/Cannonlake_(microarchitecture)">
+    <dc:description>
+    The 10 nm shrink of Skylake is due out the year after the introduction
+    of the microarchitecture and is rumored to be codenamed "Cannonlake"
+    (sources from 2011 indicated Skymont was to be the codename);
+    however no official announcement has been made. However, Cannonlake
+    is referred to as being in development already, directly from Intel's
+    job listing.
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Intel" />
+  </hw:ProcessorMicroarchitecture>
+
+  <hw:CPU rdf:about="http://redgates.com/2014/1/hardware/CPU/Xeon_W3565">
+    <dc:description>
+    Intel Xeon W3565
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Intel" />
+    <hw:codename rdf:resource="http://dbpedia.org/resource/Bloomfield_(microprocessor)" />
+    <hw:architecture rdf:resource="http://dbpedia.org/resource/Nehalem_(microarchitecture)" />
+    <hw:model>W3565</hw:model>
+    <hw:frequency>3.2</hw:frequency>
+    <hw:cores>4</hw:cores>
+    <hw:threads>2</hw:threads>
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/Intel_VT-x" />
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/Hyper-threading" />
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/NX_bit" />
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/Streaming_SIMD_Extensions" />
+  </hw:CPU>
+
+  <hw:CPU rdf:about="http://ark.intel.com/products/75044/Intel-Core-i5-4570S-Processor-6M-Cache-up-to-3_60-GHz">
+    <dc:description>
+    Intel Xeon i5-4570S
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Intel" />
+    <hw:codename rdf:resource="http://dbpedia.org/resource/Haswell_DT" />
+    <hw:architecture rdf:resource="http://dbpedia.org/resource/Haswell_(microarchitecture)" />
+    <hw:model>i5-4570S</hw:model>
+    <hw:frequency>2.9</hw:frequency>
+    <hw:cores>4</hw:cores>
+    <hw:threads>4</hw:threads>
+    <hw:model-info rdf:resource="http://ark.intel.com/products/75044/" />
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/Intel_VT-x" />
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/Hyper-threading" />
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/NX_bit" />
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/Streaming_SIMD_Extensions" />
+  </hw:CPU>
+
+  <hw:CPU rdf:about="http://ark.intel.com/products/52269/Intel-Xeon-Processor-E3-1220-8M-Cache-3_10-GHz">
+    <dc:description>
+    Intel Xeon E3-1220
+    No hyperthreading - so 4 threads is 1 thread per core.
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Intel" />
+    <hw:architecture rdf:resource="http://dbpedia.org/resource/Sandy_Bridge_(microarchitecture)" />
+    <hw:model>E3-1220</hw:model>
+    <hw:frequency>3.1</hw:frequency>
+    <hw:cores>4</hw:cores>
+    <hw:threads>4</hw:threads>
+    <hw:model-info rdf:resource="http://ark.intel.com/products/52269/" />
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/Intel_VT-x" />
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/Intel_VT-d" />
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/NX_bit" />
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/Streaming_SIMD_Extensions" />
+  </hw:CPU>
+
+  <hw:CPU rdf:about="http://redgates.com/2014/1/hardware/CPU/E3-1220v3">
+    <dc:description>
+    Intel Xeon E3-1220 v3 @3.10 GHz
+    No hyperthreading - so 4 threads is 1 thread per core.
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Intel" />
+    <hw:architecture rdf:resource="http://dbpedia.org/resource/Haswell_(microarchitecture)" />
+    <hw:model>E3-1220v3</hw:model>
+    <hw:frequency>3.1</hw:frequency>
+    <hw:cores>4</hw:cores>
+    <hw:threads>4</hw:threads>
+    <hw:model-info rdf:resource="http://ark.intel.com/products/75052/" />
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/Intel_VT-x" />
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/Intel_VT-d" />
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/NX_bit" />
+    <hw:supportsFeature rdf:resource="http://dbpedia.org/resource/Streaming_SIMD_Extensions" />
+  </hw:CPU>
+
+  <hw:PlatformFamily rdf:about="http://dbpedia.org/resource/Dell_PowerEdge">
+    <dc:description>
+    Dell PowerEdge servers.
+
+    Since the introduction of the generation 10 servers in 2007 Dell adopted
+    a standardized method for naming their servers; the name of each server is
+    represented by a letter followed by 3 digits.
+
+    The letter indicates the type of server:
+    R (for Rack-mountable) indicates a 19" rack-mountable server,
+    M (for Modular) indicates a blade server,
+    while T (for Tower) indicates a stand-alone server.
+
+    This letter is then followed by 3 digits:
+
+    The first digit refers to the number of sockets in the system:
+    1 to 3 for one socket,
+    4 to 7 for two sockets,
+    and 9 for four sockets.
+    8 can be either two or four sockets depending on generation and CPU make
+
+    The middle digit refers to the generation:
+    0 for Generation 10,
+    1 for Generation 11,
+    and so on.
+
+    The third digit indicates the make of the CPU:
+    0 for Intel or
+    5 for Advanced Micro Devices (AMD).
+
+    For example:
+    The Dell PowerEdge M610 was a two-socket server of the 11th
+    generation using an Intel CPU while the R605 was a two-socket
+    AMD-based rack-server of the 10th generation.
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Dell" />
+    <rdfs:comment>
+    find the predicate to point at this URL as documentation for this subject
+    http://en.wikipedia.org/wiki/List_of_Dell_PowerEdge_Servers
+    </rdfs:comment>
+  </hw:PlatformFamily>
+
+  <hw:PlatformFamily rdf:about="http://dbpedia.org/resource/Dell_Precision">
+    <dc:description>
+    Dell Precision Workstations
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Dell" />
+    <rdfs:comment>
+    Other doc?
+    http://www.dell.com/us/business/p/precision-desktops
+    </rdfs:comment>
+  </hw:PlatformFamily>
+
+  <hw:Platform rdf:about="http://redgates.com/2014/1/hardware/Platform/Dell/T3500">
+    <dc:description>
+    Dell Precision WorkStation T3500
+    </dc:description>
+    <hw:platform-family rdf:resource="http://dbpedia.org/resource/Dell_Precision" />
+    <hw:model>T3500</hw:model>
+    <rdfs:comment>
+    find the predicate to point at this URL as documentation for this subject
+    http://i.dell.com/sites/content/business/solutions/engineering-docs/en/Documents/precision-t3500-technical-guide.pdf
+    </rdfs:comment>
+  </hw:Platform>
+
+  <hw:Platform rdf:about="http://redgates.com/2014/1/hardware/Platform/Dell/T7500">
+    <dc:description>
+    Dell Precision WorkStation T7500
+    </dc:description>
+    <hw:platform-family rdf:resource="http://dbpedia.org/resource/Dell_Precision" />
+    <hw:model>T7500</hw:model>
+  </hw:Platform>
+
+  <hw:Platform rdf:about="http://redgates.com/2014/1/hardware/Platform/Dell/T7010">
+    <dc:description>
+    Dell PowerEdge 7010 --- FIX THIS
+    TODO maybe move model-info to model and change model to rdfs:label
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Dell" />
+    <hw:product-line rdf:resource="http://dbpedia.org/resource/Dell_Precision" />
+    <hw:model-info rdf:resource="http://www.dell.com/us/business/p/optiplex-7010/pd#TechSpec" />
+    <hw:model>7010</hw:model>
+  </hw:Platform>
+
+  <hw:Platform rdf:about="http://dell.com/OptiPlex/XE2/MiniTower">
+    <dc:description>
+    Dell XE2 MiniTower - what are the CPU options for this?
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Dell" />
+    <hw:product-line rdf:resource="http://dbpedia.org/resource/Dell_OptiPlex" />
+    <hw:cpu rdf:resource="http://redgates.com/2014/1/hardware/CPU/i5-4570S" />
+    <hw:model>XE</hw:model>
+  </hw:Platform>
+
+  <hw:Platform rdf:about="http://dell.com/OptiPlex/XE2/SmallFormFactor">
+    <dc:description>
+    Dell XE2 Small Form Factor - what are the CPU options for this?
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Dell" />
+    <hw:product-line rdf:resource="http://dbpedia.org/resource/Dell_OptiPlex" />
+    <hw:cpu rdf:resource="http://redgates.com/2014/1/hardware/CPU/i5-4570S" />
+    <hw:model>XE</hw:model>
+  </hw:Platform>
+
+  <hw:Platform rdf:about="http://redgates.com/2014/1/hardware/Platform/Dell/R220">
+    <dc:description>
+    Dell PowerEdge R220 --- FIX THIS
+    TODO maybe move model-info to model and change model to rdfs:label
+    </dc:description>
+    <hw:platform-family rdf:resource="http://dbpedia.org/resource/Dell_PowerEdge" />
+    <hw:model>R220</hw:model>
+  </hw:Platform>
+
+  <hw:Platform rdf:about="http://redgates.com/2014/1/hardware/Platform/Intel/AMT/Q77-express">
+    <dc:description>
+    Intel AMT chip - should include specific chip and version, and
+    perhaps firmware version as well.
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Intel" />
+    <hw:product-line rdf:resource="http://dbpedia.org/page/Intel_Active_Management_Technology" />
+    <hw:chipset rdf:resource="http://www.intel.com/content/www/us/en/chipsets/business-chipsets/q77-express-chipset.html" />
+    <hw:model>Q77-express</hw:model>
+    <hw:poweroff parseType="Literal">amt-poweroff</hw:poweroff>
+    <hw:poweron parseType="Literal">etherwake -i <hw:bridge/>  <hw:mac/></hw:poweron>
+  </hw:Platform>
+
+  <hw:Platform rdf:about="http://redgates.com/2014/1/hardware/Platform/Intel/AMT/Q87">
+    <dc:description>
+    Intel AMT chip - should include specific chip and version, and
+    perhaps firmware version as well.
+
+    AMT 9.0 -- read the html page for more details
+
+    The poweroff method described below should not point at a script, but
+    provide the information to actually execute it.
+
+    The poweron method should show command and args in a more organized fashion.
+    Perhaps there should be poweron command rdf subjects that provide each of
+    the predicates for the processing, and this should just reference it.
+    That way multiple chipsets could use the same command structure.
+
+    info about 9.0 chips (haswell):
+    http://software.intel.com/en-us/blogs/2013/08/07/intel-vpro-technology-release-90-platform-requirements
+    </dc:description>
+    <hw:vendor rdf:resource="http://dbpedia.org/resource/Intel" />
+    <hw:product-line rdf:resource="http://dbpedia.org/page/Intel_Active_Management_Technology" />
+    <hw:chipset rdf:resource="http://www.intel.com/content/www/us/en/chipsets/business-chipsets/q87-chipset.html" />
+    <hw:model>Q87</hw:model>
+    <hw:poweroff parseType="Literal">amt-poweroff</hw:poweroff>
+    <hw:poweron parseType="Literal">etherwake -i <hw:transmitting-interface/>  <hw:mac/></hw:poweron>
+  </hw:Platform>
+
+</rdf:RDF>
+<!--
+  - vim:autoindent
+  - vim:expandtab
+  -->

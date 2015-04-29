@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+# call-home - kredgate - 2013-12-04
+#
+# Generate diagnostics archive and post it to
+# archive bucket.
+#
+
+generate-diag CallHome
+
+# vim:autoindent
+# vim:expandtab

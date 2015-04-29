@@ -1,0 +1,558 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:diag="http://redgates.com/2012/12/diagnostics"
+    xmlns:os="http://redgates.com/2012/12/os"
+    >
+
+  <owl:Ontology rdf:about="http://redgates.com/2012/12/diagnostics">
+    <dc:title>The Carbonite Diagnostics Vocabulary</dc:title>
+    <dc:description>
+    RDF schema for the Carbonite diagnostics vocabulary.
+    </dc:description>
+    <dc:creator>Karl Redgate</dc:creator>
+    <dc:date>2013-11-04</dc:date>
+  </owl:Ontology>
+
+  <rdfs:Class rdf:about="http://redgates.com/2012/12/diagnostics/Archive">
+    <rdfs:comment>
+       Content description for a particular archive component.
+       The archive has a #contentTag type and a #systemTag that it is associated with.
+    </rdfs:comment>
+  </rdfs:Class>
+
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Unix-like'>
+    <rdfs:label>unix-like</rdfs:label>
+    <dc:title>Generic Unix like operating system</dc:title>
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/POSIX'>
+    <rdfs:label>posix</rdfs:label>
+    <dc:title>Generic POSIX conforming operating system</dc:title>
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Linux_(operating_system)'>
+    <rdfs:label>Linux</rdfs:label>
+    <dc:title>Generic Linux Distro</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Fedora_Project' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Fedora_(operating_system)'>
+    <rdfs:label>Fedora</rdfs:label>
+    <dc:title>RedHat Fedora distro</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Fedora_Project' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Red_Hat_Enterprise_Linux'>
+    <rdfs:label>RHEL</rdfs:label>
+    <dc:title>RedHat Enterprize Linux distro</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Red_Hat' />
+  </os:Platform>
+
+  <os:Platform rdf:about='_'>
+    <rdfs:label>RHEL6</rdfs:label>
+    <dc:title>RedHat Enterprize Linux distro, version 6.x</dc:title>
+  </os:Platform>
+
+  <os:Platform rdf:about=''>
+    <rdfs:label>RHEL7</rdfs:label>
+    <dc:title>RedHat Enterprize Linux distro, version 7</dc:title>
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/CentOS'>
+    <rdfs:label>CentOS</rdfs:label>
+    <dc:title>CentOS distro</dc:title>
+    <os:derivedFrom rdf:resource='http://dbpedia.org/resource/Red_Hat_Enterprise_Linux' />
+  </os:Platform>
+  <!-- specific releases -->
+
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Debian'>
+    <rdfs:label>Debian</rdfs:label>
+    <dc:title>Generic Debian distro</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Canonical_Ltd.' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Ubuntu_(operating_system)'>
+    <rdfs:label>Ubuntu</rdfs:label>
+    <dc:title>Canonical Ubuntu distro</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Canonical_Ltd.' />
+    <os:derivedFrom rdf:resource='http://dbpedia.org/resource/Debian' />
+  </os:Platform>
+  <!-- specific releases -->
+
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Microsoft_Windows'>
+    <rdfs:label>Windows</rdfs:label>
+    <dc:title>Microsoft Windows Operating System</dc:title>
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Windows_Server'>
+    <rdfs:label>windowsserver</rdfs:label>
+    <dc:title>Microsoft Windows Server</dc:title>
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Windows_Server_2003'>
+    <rdfs:label>W2K3</rdfs:label>
+    <dc:title>Microsoft Windows Server 2003</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Microsoft' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Windows_Server_2008'>
+    <rdfs:label>W2K8</rdfs:label>
+    <dc:title>Microsoft Windows Server 2008</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Microsoft' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Windows_Server_2008_R2'>
+    <rdfs:label>W2K8R2</rdfs:label>
+    <dc:title>Microsoft Windows Server 2008 R2</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Microsoft' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Windows_Server_2012'>
+    <rdfs:label>W2K12</rdfs:label>
+    <dc:title>Microsoft Windows Server 2012</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Microsoft' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Windows_Server_2012_R2'>
+    <rdfs:label>W2K12R2</rdfs:label>
+    <dc:title>Microsoft Windows Server 2012 R2</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Microsoft' />
+  </os:Platform>
+
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Darwin_(operating_system)'>
+    <rdfs:label>darwin</rdfs:label>
+    <dc:title>Darwin is the open source version of MacOS X</dc:title>
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/OS_X'>
+    <rdfs:label>osx</rdfs:label>
+    <dc:title>MacOS X</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Apple_Inc.' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Mac_OS_X_Snow_Leopard'>
+    <rdfs:label>snowleopard</rdfs:label>
+    <dc:title>MacOS X Snow Leopard</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Apple_Inc.' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/Mac_OS_X_Lion'>
+    <rdfs:label>lion</rdfs:label>
+    <dc:title>MacOS X Lion</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Apple_Inc.' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/OS_X_Mountain_Lion'>
+    <rdfs:label>mountainlion</rdfs:label>
+    <dc:title>MacOS X Mountain Lion</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Apple_Inc.' />
+  </os:Platform>
+
+  <os:Platform rdf:about='http://dbpedia.org/resource/OS_X_Mavericks'>
+    <rdfs:label>mavericks</rdfs:label>
+    <dc:title>MacOS X Mavericks</dc:title>
+    <os:organization rdf:resource='http://dbpedia.org/resource/Apple_Inc.' />
+  </os:Platform>
+
+
+  <diag:LogFile rdf:about='http://redgates.com/2012/12/diagnostics/component/syslog'>
+    <dc:description>
+    Standard syslog messages file for most distributions.  Most Unix/Linux distros
+    use /var/log/messages as the main log file.  Ubuntu decided to be different and
+    call it /var/log/syslog.
+    </dc:description>
+    <diag:path>/var/log/messages</diag:path>
+    <diag:path>/var/log/syslog</diag:path>
+  </diag:LogFile>
+
+  <diag:LogFile rdf:about='http://redgates.com/2012/12/diagnostics/component/RedisLog'>
+    <dc:description>
+    Log files for the appliance database (redis) server.
+    </dc:description>
+    <diag:path>/var/log/redis.log</diag:path>
+  </diag:LogFile>
+
+  <diag:LogFile rdf:about='http://redgates.com/2012/12/diagnostics/component/RedisLogHistory'>
+    <dc:description>
+    Older log files for the appliance database (redis) server.
+    </dc:description>
+    <diag:path>/var/log/redis.log.*</diag:path>
+  </diag:LogFile>
+
+  <diag:Directory rdf:about='http://redgates.com/2012/12/diagnostics/component/sysconfig'>
+    <dc:description>
+    RedHat systems have much of their config stored in the /etc/sysconfig
+    directory.
+    </dc:description>
+    <diag:path>/etc/sysconfig</diag:path>
+  </diag:Directory>
+
+  <diag:Directory rdf:about='http://redgates.com/2012/12/diagnostics/component/apache'>
+    <dc:description>
+    Apache config and log files for requests and errors.
+    apache2 is ubuntu, httpd is redhat.  This needs to change to use the platform
+    config that is used for commands.
+    </dc:description>
+    <diag:path>/var/log/apache2</diag:path>
+    <diag:path>/var/log/httpd</diag:path>
+    <diag:path>/etc/httpd</diag:path>
+  </diag:Directory>
+
+
+  <diag:Query rdf:about='http://redgates.com/2012/12/diagnostics/component/InterfaceAddresses'>
+    <rdfs:label>InterfaceAddresses</rdfs:label>
+    <dc:description>
+    List of addresses configured on network interfaces.
+    </dc:description>
+  </diag:Query>
+
+  <diag:Execute rdf:about="http://redgates.com/2012/12/diagnostics/component/InterfaceAddresses">
+      <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Linux_(operating_system)' />
+      <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/InterfaceAddresses' />
+      <diag:command><![CDATA[ ip address list ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Execute rdf:about="http://redgates.com/2012/12/diagnostics/component/InterfaceAddresses">
+      <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Darwin_(operating_system)' />
+      <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/InterfaceAddresses' />
+      <diag:interpreter>bash</diag:interpreter>
+      <diag:command><![CDATA[ ifconfig -a ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Execute rdf:about="http://redgates.com/2012/12/diagnostics/component/InterfaceAddresses">
+      <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Microsoft_Windows' />
+      <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/InterfaceAddresses' />
+      <diag:interpreter>cmd.exe</diag:interpreter>
+      <diag:command><![CDATA[ ipconfig /all ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Query rdf:about='http://redgates.com/2012/12/diagnostics/component/NeighborTable'>
+    <rdfs:label>NeighborTable</rdfs:label>
+    <dc:description>
+    List of network neighbors known to the host.
+    </dc:description>
+  </diag:Query>
+
+  <diag:Execute rdf:parseType='_'>
+      <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Linux_(operating_system)' />
+      <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/NeighborTable' />
+      <diag:command><![CDATA[ ip neigh list ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Execute rdf:parseType='_'>
+      <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Darwin_(operating_system)' />
+      <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/NeighborTable' />
+      <diag:command><![CDATA[ arp -a ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Query rdf:about='http://redgates.com/2012/12/diagnostics/component/ListeningSockets'>
+    <rdfs:label>ListeningSockets</rdfs:label>
+    <dc:description>
+    List of sockets listening on this host.
+    Useful to determine if the service required are actually listening.
+    </dc:description>
+  </diag:Query>
+
+  <diag:Execute rdf:parseType='_'>
+    <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Linux_(operating_system)' />
+    <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/ListeningSockets' />
+    <diag:command><![CDATA[ netstat -nlp ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Query rdf:about='http://redgates.com/2012/12/diagnostics/component/RoutingTable'>
+    <rdfs:label>RoutingTable</rdfs:label>
+    <dc:description>
+    List of network routes present on the appliance.
+    Useful to determine connectivity from/to the appliance.
+    </dc:description>
+  </diag:Query>
+
+  <diag:Execute rdf:parseType='_'>
+    <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Linux_(operating_system)' />
+    <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/RoutingTable' />
+    <diag:command><![CDATA[ ip route list ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Execute rdf:parseType='_'>
+    <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Darwin_(operating_system)' />
+    <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/RoutingTable' />
+    <diag:command><![CDATA[ netstat -nr ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Query rdf:about='http://redgates.com/2012/12/diagnostics/component/ProcessList'>
+    <rdfs:label>ProcessList</rdfs:label>
+    <dc:description>
+    List of currently running processes.
+    </dc:description>
+  </diag:Query>
+
+  <diag:Execute rdf:about="_">
+      <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Linux_(operating_system)' />
+      <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/ProcessList' />
+      <diag:command><![CDATA[ ps auxwww ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Execute rdf:about="_">
+      <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Darwin_(operating_system)' />
+      <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/ProcessList' />
+      <diag:interpreter>bash</diag:interpreter>
+      <diag:command><![CDATA[ ps auxwww ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Execute rdf:about="_">
+      <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Microsoft_Windows' />
+      <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/ProcessList' />
+      <diag:interpreter>cmd.exe</diag:interpreter>
+      <diag:command><![CDATA[ tasklist /v ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Query rdf:about='http://redgates.com/2012/12/diagnostics/component/KernelSettings'>
+    <rdfs:label>KernelSettings</rdfs:label>
+    <dc:description>
+    List of kernel settings.
+    </dc:description>
+  </diag:Query>
+
+  <diag:Execute rdf:about="_">
+    <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Linux_(operating_system)' />
+    <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/KernelSettings' />
+    <diag:command><![CDATA[ sysctl -a ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Query rdf:about='http://redgates.com/2012/12/diagnostics/component/DMIInformation'>
+    <rdfs:label>DMIInformation</rdfs:label>
+    <dc:description>
+    </dc:description>
+  </diag:Query>
+
+  <diag:Execute rdf:about="_">
+    <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Linux_(operating_system)' />
+    <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/DMIInformation' />
+    <diag:command><![CDATA[ dmidecode ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Execute rdf:about="_">
+    <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Darwin_(operating_system)' />
+    <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/DMIInformation' />
+    <diag:command><![CDATA[ system_profiler -xml -detailLevel basic ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Query rdf:about='http://redgates.com/2012/12/diagnostics/component/BIOSInformation'>
+    <rdfs:label>BIOSInformation</rdfs:label>
+    <dc:description>
+    </dc:description>
+  </diag:Query>
+
+  <diag:Execute rdf:about="_">
+    <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Linux_(operating_system)' />
+    <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/BIOSInformation' />
+    <diag:command><![CDATA[ biosdecode ]]></diag:command>
+  </diag:Execute>
+
+
+  <diag:Query rdf:about='http://redgates.com/2012/12/diagnostics/component/PartitionList'>
+    <rdfs:label>PartitionList</rdfs:label>
+    <dc:description>
+    This only works for OSX - need to have platform specific commands
+    for linux we need to get /proc/partitions
+    </dc:description>
+  </diag:Query>
+
+  <diag:Execute rdf:about="_">
+    <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Linux_(operating_system)' />
+    <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/PartitionList' />
+    <diag:command><![CDATA[ cat /proc/partitions ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Execute rdf:about="_">
+    <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Darwin_(operating_system)' />
+    <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/PartitionList' />
+    <diag:command><![CDATA[ diskutil list ]]></diag:command>
+  </diag:Execute>
+
+
+  <diag:Query rdf:about='http://redgates.com/2012/12/diagnostics/component/DiskFreeSpace'>
+    <rdfs:label>DiskFreeSpace</rdfs:label>
+    <dc:description>
+    </dc:description>
+  </diag:Query>
+
+  <diag:Execute rdf:about="_">
+    <dc:description>
+      This should be generic Unix os.
+    </dc:description>
+    <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Unix-like' />
+    <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Linux_(operating_system)' />
+    <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Darwin_(operating_system)' />
+    <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/DiskFreeSpace' />
+    <diag:command><![CDATA[ df -k ]]></diag:command>
+  </diag:Execute>
+
+
+  <diag:Query rdf:about='http://redgates.com/2012/12/diagnostics/component/KernelModules'>
+    <rdfs:label>KernelModules</rdfs:label>
+    <dc:description>
+    </dc:description>
+  </diag:Query>
+
+  <diag:Execute rdf:about="_">
+    <dc:description>
+        Need to add a real rdf:about.
+        Perhaps add a "match" element that helps identify the host?
+    </dc:description>
+    <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Linux_(operating_system)' />
+    <diag:uname>Linux</diag:uname>
+    <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/KernelModules' />
+    <diag:command><![CDATA[ lsmod ]]></diag:command>
+  </diag:Execute>
+
+  <diag:Execute rdf:about="_">
+    <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Darwin_(operating_system)' />
+    <diag:uname>Darwin</diag:uname>
+    <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/KernelModules' />
+    <diag:command><![CDATA[ kextstat ]]></diag:command>
+  </diag:Execute>
+
+
+  <diag:Query rdf:about='http://redgates.com/2012/12/diagnostics/component/RecentLogins'>
+    <rdfs:label>RecentLogins</rdfs:label>
+    <dc:description>
+    List of the most recent logins on the console or ssh.  For Unix this is the "last"
+    command.  For Windows TBD.
+    </dc:description>
+  </diag:Query>
+
+  <diag:Execute rdf:about="_">
+      <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Linux_(operating_system)' />
+      <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/RecentLogins' />
+      <diag:command><![CDATA[ last ]]></diag:command>
+  </diag:Execute>
+
+
+  <diag:Query rdf:about='http://redgates.com/2012/12/diagnostics/component/EventLog'>
+    <rdfs:label>EventLog</rdfs:label>
+    <dc:description>
+    Report windows events from the log.
+    There are multiple kinds of events, change this to be more specific and
+    then add it to one of the Archives.
+    </dc:description>
+  </diag:Query>
+
+  <diag:Execute rdf:about="_">
+      <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Microsoft_Windows' />
+      <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/EventLog' />
+      <diag:interpreter>cmd.exe</diag:interpreter>
+      <diag:command><![CDATA[ wevtutil qu logname params ]]></diag:command>
+  </diag:Execute>
+
+
+  <diag:Archive rdf:about='http://redgates.com/2012/12/diagnostics/Archive/Base'>
+    <rdfs:label>base</rdfs:label>
+    <dc:description>
+    Base Diagnostic archive included by all others.
+    </dc:description>
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/BIOSInformation' />
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/DMIInformation' />
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/KernelModules' />
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/SysCtl' />
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/ProcessList' />
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/syslog' />
+  </diag:Archive>
+
+  <diag:Archive rdf:about='http://redgates.com/2012/12/diagnostics/Archive/Network'>
+    <rdfs:label>network</rdfs:label>
+    <dc:description>
+    Diagnostic information about current network configuration.
+    </dc:description>
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/ListeningSockets' />
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/InterfaceAddresses' />
+  </diag:Archive>
+
+  <diag:Archive rdf:about='http://redgates.com/2012/12/diagnostics/Archive/Storage'>
+    <rdfs:label>storage</rdfs:label>
+    <dc:description>
+    Diagnostic information about current storage configuration.
+    </dc:description>
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/PartitionList' />
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/DiskFreeSpace' />
+  </diag:Archive>
+
+  <diag:Archive rdf:about='http://redgates.com/2012/12/diagnostics/Archive/SecurityAudit'>
+    <rdfs:label>storage</rdfs:label>
+    <dc:description>
+    Diagnostic information about logins and permissions and other items
+    related to security.
+    </dc:description>
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/RecentLogins' />
+  </diag:Archive>
+
+  <diag:Archive rdf:about='http://redgates.com/2012/12/diagnostics/Archive/Web'>
+    <rdfs:label>storage</rdfs:label>
+    <dc:description>
+    Diagnostic information about web services, eg. apache.
+    </dc:description>
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/apache' />
+  </diag:Archive>
+
+  <diag:Archive rdf:about='http://redgates.com/2012/12/diagnostics/Archive/History'>
+    <rdfs:label>storage</rdfs:label>
+    <dc:description>
+    Historical log files - generated by the logrotate process.
+    </dc:description>
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/RedisLogHistory' />
+  </diag:Archive>
+
+  <diag:Archive rdf:about='http://redgates.com/2012/12/diagnostics/Archive/CallHome'>
+    <rdfs:label>callhome</rdfs:label>
+    <dc:description>
+    Diagnostic archive for callhome.
+    A callhome diagnostic is used when a problem occurs and the product
+    sends a callhome message reporting the problem and delivering
+    the diagnostic archive for support to review.
+    </dc:description>
+
+    <diag:include rdf:resource='http://redgates.com/2012/12/diagnostics/Archive/Base' />
+    <diag:include rdf:resource='http://redgates.com/2012/12/diagnostics/Archive/Network' />
+    <diag:include rdf:resource='http://redgates.com/2012/12/diagnostics/Archive/Storage' />
+    <diag:include rdf:resource='http://redgates.com/2012/12/diagnostics/Archive/Web' />
+    <diag:include rdf:resource='http://redgates.com/2012/12/diagnostics/Archive/SecurityAudit' />
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/sysconfig' />
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/appliance' />
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/maytag' />
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/RedisDB' />
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/RedisLog' />
+  </diag:Archive>
+
+  <diag:Archive rdf:about='http://redgates.com/2012/12/diagnostics/Archive/Reboot'>
+    <rdfs:label>reboot</rdfs:label>
+    <dc:description>
+    Diagnostic archive sent whenever the appliance performs a reboot. Normally
+    the appliance should not reboot, so this is an unexpected event.
+    </dc:description>
+
+    <diag:include rdf:resource='http://redgates.com/2012/12/diagnostics/Archive/CallHome' />
+  </diag:Archive>
+
+  <diag:Archive rdf:about='http://redgates.com/2012/12/diagnostics/Archive/Full'>
+    <rdfs:label>full</rdfs:label>
+    <dc:description>
+    Diagnostic archive with more information for problems where support requires more
+    extensive information to diagnose.
+    </dc:description>
+
+    <diag:include rdf:resource='http://redgates.com/2012/12/diagnostics/Archive/CallHome' />
+    <diag:include rdf:resource='http://redgates.com/2012/12/diagnostics/Archive/History' />
+    <diag:component rdf:resource='http://redgates.com/2012/12/diagnostics/component/apache' />
+  </diag:Archive>
+
+</rdf:RDF>
+<!-- vim: set autoindent expandtab sw=4 syntax=xslt: -->

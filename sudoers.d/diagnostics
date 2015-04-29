@@ -1,0 +1,1 @@
+carbonite ALL = (root) NOPASSWD: /usr/libexec/carbonite/diagnostics/queue-diagnostic-archive

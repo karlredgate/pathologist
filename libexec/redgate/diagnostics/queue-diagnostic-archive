@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# Generate diagnostics archive and queue it to the spool area for 
+# uploading by the spool processor.
+#
+
+[ $(id -u) -eq 0 ] || {
+    echo "Must be root to generate a diag"
+    exit 1
+}
+
+DIAGDIR=/usr/share/redgate/diagnostics
+SPOOL=/var/spool/redgate/diagnostics
+
+# the spool dir will be created by the package, but
+# for now we also create it here - to allow testing.
+# TODO remove this line soon
+mkdir -p $SPOOL
+
+archiveType=${1:-CallHome}
+archiveName=$(date +%Y-%m-%d-%H-%M-%S)
+tempScript=$SPOOL/diag$$
+
+xsltproc --stringparam archiveType $archiveType \
+         --stringparam archiveName $SPOOL/$archiveName \
+         $DIAGDIR/xslt/diagscript.xslt $DIAGDIR/diagnostics.rdf > $tempScript
+
+bash $tempScript
+rm $tempScript
+
+# vim:autoindent
+# vim:expandtab

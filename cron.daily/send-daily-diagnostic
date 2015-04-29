@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# Generate diagnostics archive for a reboot event and
+# post it to archive bucket.
+#
+
+generate-diag CallHome
+
+# vim:autoindent
+# vim:expandtab

@@ -1,0 +1,117 @@
+#!/bin/bash
+#
+# signaws - karl.redgate@gmail.com
+#
+# read a curl request config file and generate an AWS
+# signature for the request.  Update the config file
+# with header information so that a curl request would
+# succeed.
+#
+# Use AWS Signature version 4
+#
+# Assumptions:
+# 1) url is the last entry in the request config file.
+#    The authorization header will be added just before
+#    the url line.
+# 2) All headers that are in use are present in the config file.
+#    If they are not, then the signature will not be correct.
+#
+# TODO:
+# * Add some validation of the request to make sure that curl
+#   will not add more headers, and thus break the signature.
+#
+
+function lowercase() {
+    tr '[:upper:]' '[:lower:]'
+}
+
+function uppercase() {
+    tr '[:lower:]' '[:upper:]'
+}
+
+function trim() {
+    sed -e 's/ *: */:/' -e 's/  */ /g' -e 's/ *$//'
+}
+
+function=sha256
+designation=AWS4-HMAC-$(echo $function | uppercase)
+
+function parse() {
+    local symbol=$1
+    local filename=$2
+    sed -ne "/^$symbol/s/.*= *//p" $filename
+}
+
+function uri_path() {
+    echo "$1" | sed -e 's|http://[^/]*||'
+}
+
+function headers() {
+    grep '^header *=' $config | sed -e 's/^header *= *//' -e 's/^"//' -e 's/"$//'
+    sed -ne '/^content-type *=/s/^content-type *= *//' -e 's/^"//' -e 's/"$//' $config
+}
+
+config=$1
+
+sed -e '/^header *= *"*[Aa]uthorization/d' $config > cleaned
+mv cleaned $config
+
+#
+# Task 1: Create a Canonicl Request
+#
+
+HTTPRequestMethod=$(parse request $config)
+URI=$(parse url $config)
+CanonicalURI=$(uri_path "$URI")
+CanonicalHeaders=$(headers $config | lowercase | trim | sort)
+
+PaylodFile=$(parse data $config)
+PayloadHash=$(digest $RequestPayload)
+
+CanonicalRequest="$HTTPRequestMethod
+$CanonicalURI
+$CanonicalQueryString
+$CanonicalHeaders
+$SignedHeaders
+$PayloadHash"
+echo "CanonicalRequest <$CanonicalRequest>"
+
+#
+# Task 2: Create a String to Sign
+#
+
+MessageDigest=$(echo $CanonicalRequest | openssl dgst -$function)
+echo "Digest: $MessageDigest"
+
+STS="$designation
+$RequestDate
+$CredentialScope
+$MessageDigest"
+
+#
+# Task 3: Calculate the AWS Signature
+#
+
+function HMAC() {
+    openssl dgst -$function -binary
+    echo "$1"
+}
+
+function generatekey() {
+    local SecretKey=$(parse secretkey ~/.awskey)
+    local Date="$1"
+    local Region="$2"
+    local Service="$3"
+
+    echo "AWS4${SecretKey}${Date}" | HMAC $Region | HMAC $Service | HMAC aws4_request
+}
+
+SecretKey=$(parse secretkey ~/.awskey)
+echo "signing with $SecretKey"
+
+SigningKey=$(generatekey $Date $Region $Service | od --format u1)
+
+echo "SigningKey: $SigningKey"
+
+: vim:autoindent
+: vim:expandtab
