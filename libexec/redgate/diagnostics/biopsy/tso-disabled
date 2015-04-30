@@ -1,0 +1,29 @@
+#!/bin/bash
+#
+# Check that TSO is disabled on all physical interfaces.
+#
+
+let errors=0
+
+for path in /sys/class/net/*/device
+do
+    interface=$(basename $(dirname $path))
+    ethtool --show-offload $interface 2> /dev/null | grep ': on' && {
+        let errors++
+	echo "===> $interface has an invalid configuration"
+    }
+done
+
+echo "$errors network interfaces have bad offload configuration"
+exit $errors
+
+META=<<END
+# biopsy metadata
+NAME="is-tso-disabled"
+DESCRIPTION="Check that TSO is disabled on all physical interfaces"
+CONTACT=Karl.Redgate@gmail.com
+BUG=12345
+# end biopsy metadata
+END
+
+# vim:autoindent
