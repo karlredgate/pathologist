@@ -1,0 +1,100 @@
+#!/bin/bash
+#
+# Karl.Redgate@gmail.com
+#
+# Run a series of "biopsy"s on a live host and
+# print diagnostics as we go.  Exit with success if no errors were
+# found or with an error code.
+#
+# A biopsy is REQUIRED to have meta-data to be valid.
+#
+
+DIR=/usr/libexec/redgate/diagnostics/biopsy
+cd $DIR
+
+function load_metadata() {
+    local biopsy=$1
+    local meta=/tmp/biopsy-$$
+
+    sed -ne '/# biopsy metadata/,/# end biopsy metadata/p' $biopsy > $meta
+
+    unset -v NAME DESCRIPTION CONTACT BUG RESERVE DISABLED
+    . $meta
+    rm $meta
+
+    [ -z "$NAME" ] && return 1
+    [ -z "$DESCRIPTION" ] && return 1
+    [ -z "$CONTACT" ] && return 1
+    # RESERVE is optional
+    return 0
+}
+
+let errors=0
+let result=1
+
+for biopsy in *
+do
+    case $biopsy in
+    *.txt)
+        # skip documentation files
+	continue
+	;;
+    *~)
+        # skip auto save files
+	continue
+	;;
+    *.xml)
+        # process the XML description of the test??
+	continue
+	;;
+    *)
+        [ -x $biopsy ] || {
+	    echo "Biopsy: $biopsy is not executable, skipping."
+	    continue
+	}
+    esac
+
+    # load metadata
+    load_metadata $biopsy || {
+        echo Invalid biopsy metadata in $biopsy
+	continue
+    }
+
+    case "$DISABLED" in
+    yes|YES|1|true|TRUE)
+	echo "Biopsy [$NAME] is disabled: '$DESCRIPTION'"
+	continue
+        ;;
+    esac
+
+    # Capture output
+    ./$biopsy || {
+        let errors+=$?
+	echo "  "
+	echo "Biopsy [$NAME] failed: '$DESCRIPTION'"
+	echo "Contact: $CONTACT"
+
+	[ -n "$BUG" ] && {
+	    echo "Bug:     $BUG"
+	    bugmsg=" (Bug:$BUG)"
+	}
+
+	logger -t biopsy "%BUG '$DESCRIPTION' Contact:$CONTACT$bugmsg"
+
+        [ -n "$RESERVE" ] && {
+            echo "RESERVE: $RESERVE"
+            result=255
+        }
+    }
+
+done
+
+# If there are no errors, we exit with 0, which is success
+# Otherwise the exit code is error count
+[ ${errors:-0} = 0 ] && exit 0
+
+echo "  $errors errors detected"
+
+exit $result
+
+# vim:autoindent
