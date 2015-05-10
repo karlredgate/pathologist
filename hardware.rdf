@@ -10,9 +10,9 @@
     >
 
   <owl:Ontology rdf:about="http://redgates.com/2014/1/hardware">
-    <dc:title>The Carbonite Lab Vocabulary</dc:title>
+    <dc:title>The Pathologist Lab Vocabulary</dc:title>
     <dc:description>
-    RDF schema for the Carbonite lab vocabulary.
+    RDF schema for the Pathologist lab vocabulary.
 
     The Generic infomation should be split into its own file, and the
     specific hardware that is present should not have any of the
