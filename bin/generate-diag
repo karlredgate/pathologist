@@ -5,7 +5,7 @@
 #
 
 archive_type=${1:-CallHome}
-sudo /usr/libexec/carbonite/diagnostics/queue-diagnostic-archive $archive_type
+sudo /usr/libexec/pathologist/diagnostics/queue-diagnostic-archive $archive_type
 
 # vim:autoindent
 # vim:expandtab
