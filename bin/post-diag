@@ -8,7 +8,6 @@
 #
 
 import sys
-sys.path.append('/usr/share/pyshared')
 
 import os
 import sys
@@ -47,7 +46,7 @@ if os.path.exists(filename) is False:
 #      --trace-ascii /dev/stdout
 #      --data ''
 #      --header 'Content-Type: application/json'
-#   'http://api.maytag.carbonite.com/v1/diagnostics/appliances/'$systemid'/log'
+#   'http://sts.redgates.com/diagnostics/'$systemid'/log'
 #
 
 systemid = system_uuid()

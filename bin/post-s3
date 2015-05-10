@@ -1,9 +1,7 @@
 #!/usr/bin/python
 #
-# post-s3 - kredgate - 01-23-2014
-#
 # Post a file to a specific diagnostic bucket on S3 using
-# credentials provided by the appliance service at Carbonite.
+# credentials provided by ...
 #
 # The file is put in the diagnostics bucket under
 # a path using the SMBIOS system UUID.
@@ -22,10 +20,6 @@ import simplejson
 import urllib2
 import urllib
 
-from carboniteappliance.config import load_config
-
-config = load_config()
-
 openlog( 'post-s3', LOG_PID, LOG_CRON )
 
 if len(sys.argv) < 2:
@@ -34,7 +28,6 @@ if len(sys.argv) < 2:
     sys.exit( 1 )
 
 systemid = sys.argv[1]
-# validate uuid format - seems to error on api if it is not
 filename = sys.argv[2]
 
 # accept third arg as target resource name on S3, but
@@ -52,8 +45,8 @@ if os.path.exists(filename) is False:
     print >> sys.stderr, filename + ' does not exist'
     sys.exit( 1 )
 
-api_uri = config.APP_SERVER_URL + '/v1'
-log_token_url = api_uri + '/diagnostics/appliances/' + systemid + '/log'
+api_uri = "http://something"
+log_token_url = api_uri + '/diagnostics/' + systemid + '/log'
 
 # what exceptions should be caught here
 try:
@@ -83,5 +76,4 @@ if sys.stdout.isatty():
 
 result = key.set_contents_from_filename( filename )
 
-# vim:autoindent
-# vim:expandtab
+# vim:autoindent expandtab
