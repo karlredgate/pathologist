@@ -16,10 +16,6 @@ import simplejson
 import urllib2
 import urllib
 
-from carboniteappliance.config import load_config
-
-config = load_config()
-
 def report(message):
     if sys.stdout.isatty():
         print message
@@ -39,7 +35,6 @@ if len(sys.argv) < 2:
     sys.exit( 1 )
 
 systemid = sys.argv[1]
-# validate uuid format - seems to error on api if it is not
 resource = sys.argv[2]
 
 # accept third arg as target filename, if not present then use
@@ -51,8 +46,7 @@ except:
 
 report( 'attempting download of ' + resource )
 
-api_uri = config.APP_SERVER_URL + '/v1'
-log_token_url = api_uri + '/diagnostics/appliances/' + systemid + '/log'
+log_token_url = ".../something/for/sts"
 
 # what exceptions should be caught here
 try:
@@ -88,5 +82,4 @@ if key is None:
 report( 'downloading ' + keyname + ' as file ' + filename )
 result = key.get_contents_to_filename( filename )
 
-# vim:autoindent
-# vim:expandtab
+# vim:autoindent expandtab

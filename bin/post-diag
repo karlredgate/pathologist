@@ -1,9 +1,7 @@
 #!/usr/bin/python
 #
-# post-diag - kredgate - 12-04-2013
-#
 # Post a diagnostic archive to S3 using credentials
-# provided by the appliance service at Carbonite.
+# provided by ...
 #
 # The archive is put in the diagnostics bucket under
 # a path using the SMBIOS system UUID.
@@ -21,11 +19,6 @@ import boto
 import json
 import urllib2
 import urllib
-
-from carboniteappliance.config import load_config
-
-config = load_config()
-
 
 def system_uuid():
     with open("/var/run/inventory/system-uuid", "r") as fd:
@@ -59,7 +52,7 @@ if os.path.exists(filename) is False:
 
 systemid = system_uuid()
 # systemid = 'aaaabbbb-cccc-dddd-eeee-ffff00000000'
-log_token_url = config.APP_SERVER_URL + '/v1/diagnostics/appliances/' + systemid + '/log'
+log_token_url = '/diagnostics/' + systemid + '/log'
 
 # what exceptions should be caught here
 try:
@@ -86,5 +79,4 @@ syslog( LOG_ERR, 'uploading ' + filename + ' as key ' + keyname )
 print 'uploading ' + filename + ' as key ' + keyname
 result = key.set_contents_from_filename( filename )
 
-# vim:autoindent
-# vim:expandtab
+# vim:autoindent expandtab
