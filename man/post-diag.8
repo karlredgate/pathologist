@@ -1,6 +1,6 @@
 '\" t
 .\"     Title: post-diag
-.\"    Author: KRedgate@carbonite.com
+.\"    Author: Karl.Redgate@gmail.com
 .\" Generator: DocBook XSL Stylesheets v1.76.1 <http://docbook.sf.net/>
 .\"      Date: 12/17/2013
 .\"    Manual: System Management Commands
@@ -22,7 +22,7 @@
 .\" * MAIN CONTENT STARTS HERE *
 .\" -----------------------------------------------------------------
 .SH "NAME"
-post-diag \- post a diagnostic archive to Carbonite log server
+post-diag \- post a diagnostic archive to pathalogist log server
 .SH "SYNOPSIS"
 .HP \w'\fBpost-diag\fR\ 'u
 \fBpost-diag\fR [\fIoptions\fR] \fILOGIN\fR
@@ -34,9 +34,8 @@ post-diag \- post a diagnostic archive to Carbonite log server
 .PP
 
 \fBpost-diag\fR
-is a low level utility for adding users\&. On Debian, administrators should usually use
-\fBadduser\fR(8)
-instead\&.
+is a utility for uploading a diagnostic archive from the spool area
+to a log server\&.
 .PP
 When invoked without the
 \fB\-D\fR
@@ -195,7 +194,8 @@ and others)\&.
 
 Example:
 \fB\-K \fR\fIPASS_MAX_DAYS\fR=\fI\-1\fR
-can be used when creating system account to turn off password ageing, even though system account has no password at all\&. Multiple
+can be used when creating system account to turn off password ageing,
+even though system account has no password at all\&. Multiple
 \fB\-K\fR
 options can be specified, e\&.g\&.:
 \fB\-K \fR
