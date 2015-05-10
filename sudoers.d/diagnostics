@@ -1,1 +1,1 @@
-carbonite ALL = (root) NOPASSWD: /usr/libexec/carbonite/diagnostics/queue-diagnostic-archive
+pathologist ALL = (root) NOPASSWD: /usr/libexec/pathologist/diagnostics/queue-diagnostic-archive
