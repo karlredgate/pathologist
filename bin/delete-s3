@@ -3,7 +3,7 @@
 # delete-s3 - kredgate - 01-23-2014
 #
 # Delete a file from a specific diagnostic bucket on S3 using
-# credentials provided by the appliance service at Carbonite.
+# credentials provided by ...
 #
 
 import sys
@@ -19,10 +19,6 @@ import simplejson
 import urllib2
 import urllib
 
-from carboniteappliance.config import load_config
-
-config = load_config()
-
 openlog( 'delete-s3', LOG_PID, LOG_CRON )
 
 if len(sys.argv) < 2:
@@ -31,14 +27,10 @@ if len(sys.argv) < 2:
     sys.exit( 1 )
 
 systemid = sys.argv[1]
-# validate uuid format - seems to error on api if it is not
 target = sys.argv[2]
 
 if sys.stderr.isatty():
     print >> sys.stderr, 'attempting delete of ' + target
-
-api_uri = config.APP_SERVER_URL + '/v1'
-log_token_url = api_uri + '/diagnostics/appliances/' + systemid + '/log'
 
 output = subprocess.check_output(['get-s3-credentials', '--json']).strip()
 token = simplejson.loads( output )
@@ -60,6 +52,4 @@ if sys.stdout.isatty():
 
 result = bucket.delete_key( keyname )
 
-
-# vim:autoindent
-# vim:expandtab
+# vim:autoindent expandtab

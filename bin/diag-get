@@ -1,9 +1,7 @@
 #!/usr/bin/python
 #
-# diag-get - kredgate - 01-23-2014
-#
 # Get a file from a specific diagnostic bucket on S3 using
-# credentials provided by the appliance service at Carbonite.
+# credentials provided by ...
 #
 # The file is put in the diagnostics bucket under
 # a path using the SMBIOS system UUID.
@@ -21,10 +19,6 @@ import boto
 import simplejson
 import urllib2
 import urllib
-
-from carboniteappliance.config import load_config
-
-config = load_config()
 
 def report(message):
     if sys.stdout.isatty():
@@ -56,9 +50,6 @@ except:
     filename = resource
 
 report( 'attempting download of ' + resource )
-
-api_uri = config.APP_SERVER_URL + '/v1'
-log_token_url = api_uri + '/diagnostics/appliances/' + systemid + '/log'
 
 # what exceptions should be caught here
 try:
@@ -94,5 +85,4 @@ if key is None:
 report( 'downloading ' + keyname + ' as file ' + filename )
 result = key.get_contents_to_filename( filename )
 
-# vim:autoindent
-# vim:expandtab
+# vim:autoindent expandtab
