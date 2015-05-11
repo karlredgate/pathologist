@@ -4,8 +4,8 @@
 
 %define srcdir   %{getenv:PWD}
 
-Summary: Redgate Diagnostics Tools
-Name: redgate-diagnostics
+Summary: Pathologist Diagnostics Tools
+Name: pathologist
 Version: 1.0
 Release: %{revcount}.%{treeish}%{localmods}
 Distribution: Redgate
@@ -22,14 +22,14 @@ Requires(pre): coreutils
 Requires(post): sed
 
 %description
-Tools for diagnosing RedX managed systems.
+Tools for diagnosing Redgate managed systems.
 
 %prep
 %build
 
 %install
-install --directory --mode=755 $RPM_BUILD_ROOT/etc/sysconfig/redgate
-install --mode=644 %{srcdir}/sysconfig/redgate/* $RPM_BUILD_ROOT/etc/sysconfig/redgate/
+install --directory --mode=755 $RPM_BUILD_ROOT/etc/sysconfig/
+install --mode=644 %{srcdir}/sysconfig/* $RPM_BUILD_ROOT/etc/sysconfig/
 
 install --directory --mode=755 $RPM_BUILD_ROOT/etc/init
 install --mode=644 %{srcdir}/etc/init/*.conf $RPM_BUILD_ROOT/etc/init/
@@ -71,7 +71,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,0755)
-%config /etc/sysconfig/redgate/diagnostics
+%config /etc/sysconfig/pathologist
 /etc/init/inventory.conf
 /etc/pki/dialout/
 /etc/sudoers.d/diagnostics
