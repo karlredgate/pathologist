@@ -31,6 +31,13 @@
   <xsl:key name='component' match='/rdf:RDF/node()' use='@rdf:about' />
   <xsl:key name='os' match='/rdf:RDF/os:Platform' use='rdfs:label' />
 
+  <xsl:variable name='commandInterpreter' as="xsd:string">
+      <xsl:choose>
+        <xsl:when test='$operatingSystemName = "Windows"'>powershell</xsl:when>
+        <xsl:otherwise>bash</xsl:otherwise>
+      </xsl:choose>
+  </xsl:variable>
+
   <xsl:variable name='archiveRef' as="xsd:string">
       <xsl:text>http://redgates.com/2012/12/diagnostics/Archive/</xsl:text>
       <xsl:value-of select='$archiveType' />
@@ -41,6 +48,7 @@
   </xsl:variable>
 
   <xsl:output method="text"/>
+
   <xsl:template match='text()' />
   <xsl:template match='text()' mode='bash' />
   <xsl:template match='text()' mode='powershell' />
@@ -50,11 +58,15 @@
   </dc:description>
   <xsl:template match='/'>
       <xsl:choose>
-        <xsl:when test='$operatingSystemName = "Windows"'>
+        <xsl:when test='$commandInterpreter = "powershell"'>
             <xsl:apply-templates mode='powershell' />
         </xsl:when>
-        <xsl:otherwise>
+        <xsl:when test='$commandInterpreter = "bash"'>
             <xsl:apply-templates mode='bash' />
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:text># Unsupported platform&#10;</xsl:text>
+            <xsl:text>echo "Unsupported platform&#10;</xsl:text>
         </xsl:otherwise>
       </xsl:choose>
   </xsl:template>
@@ -318,12 +330,10 @@ zip $ARCHIVE --quiet --recurse-paths --names-stdin < MANIFEST || : ignore errors
   scriptlet that provides the output.
   </dc:description>
   <xsl:template match='diag:command' mode='powershell' >
+      <xsl:text>Start-Process -wait -FilePath "</xsl:text>
       <xsl:value-of select='.' />
-      <xsl:text>&#10;</xsl:text>
+      <xsl:text>"&#10;</xsl:text>
   </xsl:template>
 
 </xsl:stylesheet>
-<!--
-  vim:autoindent
-  vim:expandtab
-  -->
+<!-- vim: set autoindent expandtab sw=4 syntax=xslt: -->
