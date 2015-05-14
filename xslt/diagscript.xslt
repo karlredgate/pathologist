@@ -254,15 +254,20 @@ zip $ARCHIVE --quiet --recurse-paths --names-stdin < MANIFEST || : ignore errors
 
       <xsl:text>function </xsl:text>
       <xsl:value-of select='rdfs:label' />
-      <xsl:text>() {&#10;</xsl:text>
+      <xsl:text> {&#10;</xsl:text>
 
       <xsl:text>#OS </xsl:text>
       <xsl:value-of select='$osRef' />
       <xsl:text>&#10;</xsl:text>
+      <xsl:text>  Begin {&#10;</xsl:text>
       <xsl:apply-templates
           select='/rdf:RDF/diag:Execute[diag:forPlatform/@rdf:resource=$osRef][diag:answersQuery/@rdf:resource=$about]'
           mode='powershell' />
 
+      <xsl:text>  }&#10;</xsl:text>
+      <xsl:text>  End {&#10;</xsl:text>
+      <xsl:text>  # Put write-output here?&#10;</xsl:text>
+      <xsl:text>  }&#10;</xsl:text>
       <xsl:text>}&#10;</xsl:text>
       <xsl:text>Write-Output "</xsl:text>
       <xsl:value-of select='rdfs:label' />
