@@ -59,6 +59,9 @@ TODO
  * after we cut over to centos - move rsyslog override conf to osconfig rpm
  * change archive name to include diagnostic type
 
+ * add inotify event diagnostics
+ * add rsyslog event diags
+
 IDEAS
 ----
  * auto update
