@@ -20,221 +20,139 @@
   This should work for any system type understood by the RDF info.
   </dc:description>
 
-  <xsl:param name='operatingSystemName' as="xsd:string">Linux</xsl:param>
-  <xsl:param name='operatingSystemReleaseMajor' as="xsd:string">2</xsl:param>
-  <xsl:param name='operatingSystemReleaseMinor' as="xsd:string">6</xsl:param>
-  <xsl:param name='operatingSystemReleasePatch' as="xsd:string">32</xsl:param>
+  <xsl:param name='kernelName' as="xsd:string">Linux</xsl:param>
+  <xsl:param name='distroName' as="xsd:string"></xsl:param>
+  <xsl:param name='distroReleaseMajor' as="xsd:string"></xsl:param>
+  <xsl:param name='distroReleaseMinor' as="xsd:string"></xsl:param>
+  <xsl:param name='distroReleasePatch' as="xsd:string"></xsl:param>
 
   <xsl:param name='archiveType' as="xsd:string">CallHome</xsl:param>
   <xsl:param name='archiveName' as="xsd:string">DiagArchive</xsl:param>
-
-  <xsl:key name='component' match='/rdf:RDF/node()' use='@rdf:about' />
-  <xsl:key name='os' match='/rdf:RDF/os:Platform' use='rdfs:label' />
-
-  <xsl:variable name='commandInterpreter' as="xsd:string">
-      <xsl:choose>
-        <xsl:when test='$operatingSystemName = "Windows"'>powershell</xsl:when>
-        <xsl:otherwise>bash</xsl:otherwise>
-      </xsl:choose>
-  </xsl:variable>
 
   <xsl:variable name='archiveRef' as="xsd:string">
       <xsl:text>http://redgates.com/2012/12/diagnostics/Archive/</xsl:text>
       <xsl:value-of select='$archiveType' />
   </xsl:variable>
 
-  <xsl:variable name='osRef' as="xsd:string">
-      <xsl:value-of select='key("os",$operatingSystemName)/@rdf:about' />
+  <xsl:variable name='fullDistroLabel' as="xsd:string">
+      <xsl:value-of select='$distroName' />
+      <xsl:value-of select='$distroReleaseMajor' />
+  </xsl:variable>
+
+  <xsl:key name='platform' match='/rdf:RDF/diag:Platform' use='rdfs:label' />
+  <xsl:key name='component' match='/rdf:RDF/node()' use='@rdf:about' />
+
+  <xsl:variable name='kernelURI' as="xsd:string">
+      <xsl:value-of select='key("platform",$kernelName)/@rdf:about' />
+  </xsl:variable>
+
+  <xsl:variable name='distroURI' as="xsd:string">
+      <xsl:value-of select='key("platform",$distroName)/@rdf:about' />
+  </xsl:variable>
+
+  <xsl:variable name='fullDistroURI' as="xsd:string">
+      <xsl:value-of select='key("platform",$fullDistroLabel)/@rdf:resource' />
+      <xsl:value-of select='$distroReleaseMajor' />
   </xsl:variable>
 
   <xsl:output method="text"/>
-
   <xsl:template match='text()' />
-  <xsl:template match='text()' mode='bash' />
-  <xsl:template match='text()' mode='powershell' />
 
   <dc:description>
   Only process the Archive that matches the archive type requested.
   </dc:description>
-  <xsl:template match='/'>
-      <xsl:choose>
-        <xsl:when test='$commandInterpreter = "powershell"'>
-            <xsl:apply-templates mode='powershell' />
-        </xsl:when>
-        <xsl:when test='$commandInterpreter = "bash"'>
-            <xsl:apply-templates mode='bash' />
-        </xsl:when>
-        <xsl:otherwise>
-            <xsl:text># Unsupported platform&#10;</xsl:text>
-            <xsl:text>echo "Unsupported platform&#10;</xsl:text>
-        </xsl:otherwise>
-      </xsl:choose>
-  </xsl:template>
-
-  <dc:description>
-  Only process the Archive that matches the archive type requested.
-  </dc:description>
-  <xsl:template match='rdf:RDF' mode='bash'>
+  <xsl:template match='/rdf:RDF'>
       <xsl:text>#!/bin/bash&#10;</xsl:text>
+      <xsl:text># kernelName:      </xsl:text><xsl:value-of select='$kernelName' /><xsl:text>&#10;</xsl:text>
+      <xsl:text># kernelURI:       </xsl:text><xsl:value-of select='$kernelURI' /><xsl:text>&#10;</xsl:text>
+      <xsl:text># distroName:      </xsl:text><xsl:value-of select='$distroName' /><xsl:text>&#10;</xsl:text>
+      <xsl:text># distroURI:       </xsl:text><xsl:value-of select='$distroURI' /><xsl:text>&#10;</xsl:text>
+      <xsl:text># fullDistroLabel: </xsl:text><xsl:value-of select='$fullDistroLabel' /><xsl:text>&#10;</xsl:text>
+      <xsl:text># fullDistroURI:   </xsl:text><xsl:value-of select='$fullDistroURI' /><xsl:text>&#10;</xsl:text>
       <xsl:text>#&#10;</xsl:text>
       <xsl:text># automatically generated from diagnostics.rdf&#10;</xsl:text>
       <xsl:text>#&#10;</xsl:text>
       <xsl:text><![CDATA[
-cd /tmp
+TMPDIR=/tmp/diag$$
+mkdir $TMPDIR
+cd $TMPDIR
 echo METADATA > MANIFEST
 echo MANIFEST >> MANIFEST
 echo "ArchiveName: ]]></xsl:text>
       <xsl:value-of select='$archiveName' />
-      <xsl:text><![CDATA[" > METADATA
-echo "ArchiveRef: ]]></xsl:text>
-      <xsl:value-of select='$archiveRef' />
       <xsl:text><![CDATA[" > METADATA
 echo "ArchiveType: ]]></xsl:text>
       <xsl:value-of select='$archiveType' />
       <xsl:text><![CDATA[" >> METADATA
 date >> METADATA
 ]]></xsl:text>
-      <xsl:apply-templates select='diag:Archive[@rdf:about=$archiveRef]' mode='bash' />
+      <xsl:apply-templates select='diag:Archive[@rdf:about=$archiveRef]' />
       <xsl:text>&#10;</xsl:text>
       <xsl:text>ARCHIVE=</xsl:text>
       <xsl:value-of select='$archiveName' />
       <xsl:text>&#10;</xsl:text>
       <xsl:text><![CDATA[
+# tar -c -T MANIFEST -f support.tar.xz 2> /dev/null || : ignore errors
 zip $ARCHIVE --quiet --recurse-paths --names-stdin < MANIFEST || : ignore errors
-]]></xsl:text>
-  </xsl:template>
-
-  <dc:description>
-  Only process the Archive that matches the archive type requested.
-  </dc:description>
-  <xsl:template match='rdf:RDF' mode='powershell'>
-      <xsl:text># PowerShell&#10;</xsl:text>
-      <xsl:text>#&#10;</xsl:text>
-      <xsl:text># automatically generated from diagnostics.rdf&#10;</xsl:text>
-      <xsl:text>#&#10;</xsl:text>
-      <xsl:text><![CDATA[
-Set-Location c:\tmp
-echo METADATA > MANIFEST
-echo MANIFEST >> MANIFEST
-echo "ArchiveName: ]]></xsl:text>
-      <xsl:value-of select='$archiveName' />
-      <xsl:text><![CDATA[" > METADATA
-echo "ArchiveRef: ]]></xsl:text>
-      <xsl:value-of select='$archiveRef' />
-      <xsl:text><![CDATA[" > METADATA
-echo "ArchiveType: ]]></xsl:text>
-      <xsl:value-of select='$archiveType' />
-      <xsl:text><![CDATA[" >> METADATA
-date >> METADATA
-]]></xsl:text>
-      <xsl:apply-templates select='diag:Archive[@rdf:about=$archiveRef]' mode='powershell' />
-      <xsl:text>&#10;</xsl:text>
-      <xsl:text>ARCHIVE=</xsl:text>
-      <xsl:value-of select='$archiveName' />
-      <xsl:text>&#10;</xsl:text>
-      <xsl:text><![CDATA[
-zip $ARCHIVE --quiet --recurse-paths --names-stdin < MANIFEST || : ignore errors
+rm -rf $TMPDIR
 ]]></xsl:text>
   </xsl:template>
 
   <dc:description>
   </dc:description>
-  <xsl:template match='diag:Archive' mode='bash' >
+  <xsl:template match='diag:Archive'>
       <xsl:text># Archive: </xsl:text>
       <xsl:value-of select='@rdf:about' />
       <xsl:text>&#10;</xsl:text>
       <xsl:text>#&#10;</xsl:text>
-      <xsl:apply-templates mode='bash' />
+      <xsl:apply-templates/>
   </xsl:template>
 
   <dc:description>
   </dc:description>
-  <xsl:template match='diag:Archive' mode='powershell' >
-      <xsl:text># Archive: </xsl:text>
-      <xsl:value-of select='@rdf:about' />
-      <xsl:text>&#10;</xsl:text>
-      <xsl:text>#&#10;</xsl:text>
-      <xsl:apply-templates mode='powershell' />
-  </xsl:template>
-
-  <dc:description>
-  </dc:description>
-  <xsl:template match='diag:component' mode='bash' >
+  <xsl:template match='diag:component'>
       <xsl:text># Component: </xsl:text>
       <xsl:value-of select='@rdf:resource' />
       <xsl:text>&#10;</xsl:text>
-      <xsl:apply-templates select='key("component",@rdf:resource)' mode='bash' />
+      <xsl:apply-templates select='key("component",@rdf:resource)' />
   </xsl:template>
 
   <dc:description>
   </dc:description>
-  <xsl:template match='diag:component' mode='powershell' >
-      <xsl:text># Component: </xsl:text>
-      <xsl:value-of select='@rdf:resource' />
-      <xsl:text>&#10;</xsl:text>
-      <xsl:apply-templates select='key("component",@rdf:resource)' mode='powershell' />
-  </xsl:template>
-
-  <dc:description>
-  </dc:description>
-  <xsl:template match='diag:include' mode='bash' >
+  <xsl:template match='diag:include'>
       <xsl:text># Include: </xsl:text>
       <xsl:value-of select='@rdf:resource' />
       <xsl:text>&#10;</xsl:text>
-      <xsl:apply-templates select='key("component",@rdf:resource)' mode='bash' />
+      <xsl:apply-templates select='key("component",@rdf:resource)' />
   </xsl:template>
 
   <dc:description>
   </dc:description>
-  <xsl:template match='diag:include' mode='powershell' >
-      <xsl:text># Include: </xsl:text>
-      <xsl:value-of select='@rdf:resource' />
-      <xsl:text>&#10;</xsl:text>
-      <xsl:apply-templates select='key("component",@rdf:resource)' mode='powershell' />
+  <xsl:template match='diag:Directory'>
+      <xsl:apply-templates select='diag:path' />
   </xsl:template>
 
   <dc:description>
   </dc:description>
-  <xsl:template match='diag:Directory' mode='bash' >
-      <xsl:apply-templates select='diag:path' mode='bash' />
+  <xsl:template match='diag:LogFile'>
+      <xsl:apply-templates select='diag:path' />
   </xsl:template>
 
   <dc:description>
   </dc:description>
-  <xsl:template match='diag:Directory' mode='powershell' >
-      <xsl:apply-templates select='diag:path' mode='powershell' />
-  </xsl:template>
-
-  <dc:description>
-  </dc:description>
-  <xsl:template match='diag:LogFile' mode='bash' >
-      <xsl:apply-templates select='diag:path' mode='bash' />
-  </xsl:template>
-
-  <dc:description>
-  </dc:description>
-  <xsl:template match='diag:LogFile' mode='powershell' >
-      <xsl:apply-templates select='diag:path' mode='powershell' />
-  </xsl:template>
-
-  <dc:description>
-  </dc:description>
-  <xsl:template match='diag:Query' mode='bash'>
-    <xsl:variable name='about' as="xsd:string">
-        <xsl:value-of select='@rdf:about' />
-    </xsl:variable>
+  <xsl:template match='diag:Query'>
+      <xsl:variable name='query' as="xsd:string" select='@rdf:about' />
 
       <xsl:text>function </xsl:text>
       <xsl:value-of select='rdfs:label' />
       <xsl:text>() {&#10;</xsl:text>
 
-      <xsl:text>#OS </xsl:text>
-      <xsl:value-of select='$osRef' />
-      <xsl:text>&#10;</xsl:text>
-      <xsl:apply-templates
-          select='/rdf:RDF/diag:Execute[diag:forPlatform/@rdf:resource=$osRef][diag:answersQuery/@rdf:resource=$about]'
-          mode='bash' />
+      <xsl:apply-templates select='/rdf:RDF/diag:Execute[ diag:answersQuery/@rdf:resource = $query and
+                                                          diag:forPlatform/@rdf:resource = $distroURI ]' />
+      <xsl:apply-templates select='/rdf:RDF/diag:Execute[ diag:answersQuery/@rdf:resource = $query and
+                                                          diag:forPlatform/@rdf:resource = $kernelURI ]' />
 
+      <xsl:text>   : end of func&#10;</xsl:text>
       <xsl:text>}&#10;</xsl:text>
       <xsl:text>echo </xsl:text>
       <xsl:value-of select='rdfs:label' />
@@ -247,60 +165,19 @@ zip $ARCHIVE --quiet --recurse-paths --names-stdin < MANIFEST || : ignore errors
 
   <dc:description>
   </dc:description>
-  <xsl:template match='diag:Query' mode='powershell' >
-    <xsl:variable name='about' as="xsd:string">
-        <xsl:value-of select='@rdf:about' />
-    </xsl:variable>
-
-      <xsl:text>function </xsl:text>
-      <xsl:value-of select='rdfs:label' />
-      <xsl:text> {&#10;</xsl:text>
-
-      <xsl:text>#OS </xsl:text>
-      <xsl:value-of select='$osRef' />
+  <xsl:template match='diag:Execute'>
+      <xsl:text>: "</xsl:text>
+      <xsl:value-of select='diag:forPlatform/@rdf:resource' />
+      <xsl:text>" command&#10;</xsl:text>
+      <xsl:value-of select='diag:command' />
       <xsl:text>&#10;</xsl:text>
-      <xsl:text>  Begin {&#10;</xsl:text>
-      <xsl:apply-templates
-          select='/rdf:RDF/diag:Execute[diag:forPlatform/@rdf:resource=$osRef][diag:answersQuery/@rdf:resource=$about]'
-          mode='powershell' />
-
-      <xsl:text>  }&#10;</xsl:text>
-      <xsl:text>  End {&#10;</xsl:text>
-      <xsl:text>  # Put write-output here?&#10;</xsl:text>
-      <xsl:text>  }&#10;</xsl:text>
-      <xsl:text>}&#10;</xsl:text>
-      <xsl:text>Write-Output "</xsl:text>
-      <xsl:value-of select='rdfs:label' />
-      <xsl:text>.log" &gt;&gt; MANIFEST &#10;</xsl:text>
-      <xsl:value-of select='rdfs:label' />
-      <xsl:text> &gt; </xsl:text>
-      <xsl:value-of select='rdfs:label' />
-      <xsl:text>.log&#10;</xsl:text>
-  </xsl:template>
-
-  <dc:description>
-  </dc:description>
-  <xsl:template match='diag:Execute' mode='bash' >
-      <xsl:apply-templates select='diag:command' mode='bash' />
-  </xsl:template>
-
-  <dc:description>
-  </dc:description>
-  <xsl:template match='diag:Execute' mode='powershell' >
-      <xsl:apply-templates select='diag:command' mode='powershell' />
-  </xsl:template>
-
-  <dc:description>
-  </dc:description>
-  <xsl:template match='diag:path'>
-      <xsl:text># ERROR - no mode &#10;</xsl:text>
   </xsl:template>
 
   <dc:description>
   Within an archive component type, add the specific path to the list of
   archive components to put in the archive.
   </dc:description>
-  <xsl:template match='diag:path' mode='bash'>
+  <xsl:template match='diag:path'>
       <xsl:text>for path in </xsl:text><xsl:value-of select='.' />
       <xsl:text>&#10;</xsl:text>
       <xsl:text>do&#10;</xsl:text>
@@ -308,37 +185,6 @@ zip $ARCHIVE --quiet --recurse-paths --names-stdin < MANIFEST || : ignore errors
       <xsl:text>done&#10;</xsl:text>
   </xsl:template>
 
-  <dc:description>
-  Within an archive component type, add the specific path to the list of
-  archive components to put in the archive.
-  </dc:description>
-  <xsl:template match='diag:path' mode='powershell'>
-      <xsl:text>For-Each </xsl:text><xsl:value-of select='.' />
-      <xsl:text>&#10;</xsl:text>
-      <xsl:text>do&#10;</xsl:text>
-      <xsl:text>Write-Output $path &gt;&gt; MANIFEST &#10;</xsl:text>
-      <xsl:text>done&#10;</xsl:text>
-  </xsl:template>
-
-
-  <dc:description>
-  Within an archive component type, add the specific shell command line to the
-  scriptlet that provides the output.
-  </dc:description>
-  <xsl:template match='diag:command' mode='bash' >
-      <xsl:value-of select='.' />
-      <xsl:text>&#10;</xsl:text>
-  </xsl:template>
-
-  <dc:description>
-  Within an archive component type, add the specific shell command line to the
-  scriptlet that provides the output.
-  </dc:description>
-  <xsl:template match='diag:command' mode='powershell' >
-      <xsl:text>Start-Process -wait -FilePath "</xsl:text>
-      <xsl:value-of select='.' />
-      <xsl:text>"&#10;</xsl:text>
-  </xsl:template>
 
 </xsl:stylesheet>
-<!-- vim: set autoindent expandtab sw=4 syntax=xslt: -->
+<!-- vim: set autoindent expandtab sw=4: -->
