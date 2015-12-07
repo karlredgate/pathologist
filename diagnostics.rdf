@@ -54,12 +54,12 @@
     <os:organization rdf:resource='http://dbpedia.org/resource/Red_Hat' />
   </os:Platform>
 
-  <os:Platform rdf:about='_'>
+  <os:Platform rdf:about='http://dbpedia.org/resource/Red_Hat_Enterprise_Linux#RHEL_6'>
     <rdfs:label>RHEL6</rdfs:label>
     <dc:title>RedHat Enterprize Linux distro, version 6.x</dc:title>
   </os:Platform>
 
-  <os:Platform rdf:about=''>
+  <os:Platform rdf:about='http://dbpedia.org/resource/Red_Hat_Enterprise_Linux#RHEL_7'>
     <rdfs:label>RHEL7</rdfs:label>
     <dc:title>RedHat Enterprize Linux distro, version 7</dc:title>
   </os:Platform>
@@ -69,6 +69,12 @@
     <dc:title>CentOS distro</dc:title>
     <os:derivedFrom rdf:resource='http://dbpedia.org/resource/Red_Hat_Enterprise_Linux' />
   </os:Platform>
+
+  <diag:Platform rdf:about='http://dbpedia.org/resource/CentOS#CentOS_7'>
+     <rdfs:label>CentOS7</rdfs:label>
+     <dc:title>CentOS distro</dc:title>
+     <diag:derivedFrom rdf:resource='http://dbpedia.org/resource/Red_Hat_Enterprise_Linux' />
+  </diag:Platform>
   <!-- specific releases -->
 
 
@@ -174,6 +180,21 @@
     <diag:path>/var/log/syslog</diag:path>
   </diag:LogFile>
 
+  <diag:LogFile rdf:about='http://redgates.com/2012/12/diagnostics/component/audit'>
+    <dc:description>
+    SELinux audit log. Even though SELinux is not enabled, still contains some interesting
+    details about the activity of the machine.
+    </dc:description>
+    <diag:path>/var/log/audit/audit.log</diag:path>
+  </diag:LogFile>
+
+  <diag:LogFile rdf:about='http://redgates.com/2012/12/diagnostics/component/anaconda'>
+    <dc:description>
+    Logs from the anaconda installer from the inital install of centos on this machine.
+    </dc:description>
+    <diag:path>/var/log/anaconda/*</diag:path>
+  </diag:LogFile>
+
   <diag:LogFile rdf:about='http://redgates.com/2012/12/diagnostics/component/RedisLog'>
     <dc:description>
     Log files for the appliance database (redis) server.
@@ -242,13 +263,13 @@
     </dc:description>
   </diag:Query>
 
-  <diag:Execute rdf:parseType='_'>
+  <diag:Execute rdf:about='_'>
       <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Linux_(operating_system)' />
       <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/NeighborTable' />
       <diag:command><![CDATA[ ip neigh list ]]></diag:command>
   </diag:Execute>
 
-  <diag:Execute rdf:parseType='_'>
+  <diag:Execute rdf:about='_'>
       <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Darwin_(operating_system)' />
       <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/NeighborTable' />
       <diag:command><![CDATA[ arp -a ]]></diag:command>
@@ -262,7 +283,7 @@
     </dc:description>
   </diag:Query>
 
-  <diag:Execute rdf:parseType='_'>
+  <diag:Execute rdf:about='_'>
     <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Linux_(operating_system)' />
     <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/ListeningSockets' />
     <diag:command><![CDATA[ netstat -nlp ]]></diag:command>
@@ -276,13 +297,13 @@
     </dc:description>
   </diag:Query>
 
-  <diag:Execute rdf:parseType='_'>
+  <diag:Execute rdf:about='_'>
     <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Linux_(operating_system)' />
     <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/RoutingTable' />
     <diag:command><![CDATA[ ip route list ]]></diag:command>
   </diag:Execute>
 
-  <diag:Execute rdf:parseType='_'>
+  <diag:Execute rdf:about='_'>
     <diag:forPlatform rdf:resource='http://dbpedia.org/resource/Darwin_(operating_system)' />
     <diag:answersQuery rdf:resource='http://redgates.com/2012/12/diagnostics/component/RoutingTable' />
     <diag:command><![CDATA[ netstat -nr ]]></diag:command>
