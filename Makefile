@@ -17,10 +17,10 @@ package: dist distro_package
 dist: build
 	mkdir -p dist/usr/bin
 	cp bin/* dist/usr/bin
-	mkdir -p dist/usr/share/redx/diagnostics
-	cp diagnostics.rdf dist/usr/share/redx/diagnostics/
-	mkdir -p dist/usr/libexec/redx/diagnostics
-	cp libexec/redx/diagnostics/* dist/usr/libexec/redx/diagnostics
+	mkdir -p dist/usr/share/pathologist/diagnostics
+	cp diagnostics.rdf dist/usr/share/pathologist/diagnostics/
+	mkdir -p dist/usr/libexec/pathologist/diagnostics
+	tar cf - libexec/pathologist/diagnostics/ | tar -xf - -C dist/usr
 
 build: distro_build
 
@@ -31,4 +31,5 @@ test: distro_test
 	-rapper --count diagnostics.rdf
 
 clean: distro_clean
-	rm -f $(TESTDB)*.db dist
+	rm -f $(TESTDB)*.db
+	rm -rf dist
