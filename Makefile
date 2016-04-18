@@ -1,5 +1,5 @@
 
-PACKAGE = redgate-diagnostics
+PACKAGE = pathologist
 PWD := $(shell pwd)
 
 default: dependencies package
