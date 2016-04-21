@@ -27,26 +27,31 @@ Tools for diagnosing Redgate managed systems.
 %prep
 %build
 
-%install
+: %install
+: __PKG_SRCDIR=%{srcdir}
+: __PKG_BUILD_ROOT=$RPM_BUILD_ROOT
+: %include install.bash
+
 install --directory --mode=755 $RPM_BUILD_ROOT/etc/sysconfig/
 install --mode=644 %{srcdir}/sysconfig/* $RPM_BUILD_ROOT/etc/sysconfig/
 
 install --directory --mode=755 $RPM_BUILD_ROOT/etc/init
 install --mode=644 %{srcdir}/etc/init/*.conf $RPM_BUILD_ROOT/etc/init/
 
-install --directory --mode=755 $RPM_BUILD_ROOT/etc/pki/dialout
-install --mode=644 %{srcdir}/pki/dialout/* $RPM_BUILD_ROOT/etc/pki/dialout/
+: install --directory --mode=755 $RPM_BUILD_ROOT/etc/pki/dialout
+: install --mode=644 %{srcdir}/pki/dialout/* $RPM_BUILD_ROOT/etc/pki/dialout/
 
 install --directory --mode=755 $RPM_BUILD_ROOT/usr/bin
 install --mode=755 %{srcdir}/bin/* $RPM_BUILD_ROOT/usr/bin/
 
-install --directory --mode=755 $RPM_BUILD_ROOT/usr/share/redgate/diagnostics/xslt
-install --mode=644 %{srcdir}/xslt/*.xslt $RPM_BUILD_ROOT/usr/share/redgate/diagnostics/xslt
+install --directory --mode=755 $RPM_BUILD_ROOT/usr/share/pathologist/diagnostics/xslt
+install --mode=644 %{srcdir}/xslt/*.xslt $RPM_BUILD_ROOT/usr/share/pathologist/diagnostics/xslt
 
-libexec=libexec/redgate/diagnostics
-install --directory --mode=755 $RPM_BUILD_ROOT/usr/$libexec/dialin-hooks
-install --mode=755 %{srcdir}/$libexec/* $RPM_BUILD_ROOT/usr/$libexec/
-install --mode=755 %{srcdir}/dialin-hooks/* $RPM_BUILD_ROOT/usr/$libexec/dialin-hooks/
+: libexec=libexec/pathologist/diagnostics
+: install --directory --mode=755 $RPM_BUILD_ROOT/usr/$libexec/dialin-hooks
+: install --mode=755 %{srcdir}/$libexec/* $RPM_BUILD_ROOT/usr/$libexec/
+: install --mode=755 %{srcdir}/dialin-hooks/* $RPM_BUILD_ROOT/usr/$libexec/dialin-hooks/
+tar -cf - -C %{srcdir} libexec | tar -xf - -C $RPM_BUILD_ROOT/usr
 
 install --directory --mode=755 $RPM_BUILD_ROOT/etc/cron.d
 install --mode=644 %{srcdir}/cron.d/* $RPM_BUILD_ROOT/etc/cron.d/
@@ -63,8 +68,8 @@ install --mode=644 %{srcdir}/rsyslog.d/* $RPM_BUILD_ROOT/etc/rsyslog.d/
 install --directory --mode=755 $RPM_BUILD_ROOT/etc/sudoers.d
 install --mode=644 %{srcdir}/sudoers.d/* $RPM_BUILD_ROOT/etc/sudoers.d/
 
-install --directory --mode=755 $RPM_BUILD_ROOT/var/log/redgate/diagnostics
-install --directory --mode=755 $RPM_BUILD_ROOT/var/spool/redgate/diagnostics
+install --directory --mode=755 $RPM_BUILD_ROOT/var/log/pathologist/diagnostics
+install --directory --mode=755 $RPM_BUILD_ROOT/var/spool/pathologist/diagnostics
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -73,17 +78,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,0755)
 %config /etc/sysconfig/pathologist
 /etc/init/inventory.conf
-/etc/pki/dialout/
+# /etc/pki/dialout/
 /etc/sudoers.d/diagnostics
 /etc/cron.d/
 /etc/cron.reboot/
 /etc/cron.daily/
 /etc/rsyslog.d/
 /usr/bin
-/usr/share/redgate/diagnostics/
-/usr/libexec/redgate/diagnostics/
-/var/log/redgate/diagnostics/
-/var/spool/redgate/diagnostics/
+/usr/share/pathologist/diagnostics/
+/usr/libexec/pathologist/diagnostics/
+/var/log/pathologist/diagnostics/
+/var/spool/pathologist/diagnostics/
 
 %pre
 # rm -f /etc/yum.repos.d/*
