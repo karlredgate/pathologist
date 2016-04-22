@@ -1,7 +1,6 @@
 #!/bin/bash
 #
-# Install the packages necessary to do development on CentOS based
-# appliances.  This only works with yum/rpm.
+# Install the packages necessary to do development on CentOS/RHELish releases
 #
 
 function die() {
@@ -11,7 +10,6 @@ function die() {
 
 yum --quiet groupinstall -y "Development tools" || die "DevTools group"
 
-# The python tools are required for the appliance packge
 # redhat-lsb-core is required for diagnostics builds
 for package in python-devel python-setuptools redhat-lsb-core fdupes
 do
