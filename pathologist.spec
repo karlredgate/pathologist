@@ -84,7 +84,7 @@ rm -rf $RPM_BUILD_ROOT
 /etc/cron.reboot/
 /etc/cron.daily/
 /etc/rsyslog.d/
-/usr/bin
+/usr/bin/*
 /usr/share/pathologist/diagnostics/
 /usr/libexec/pathologist/diagnostics/
 /var/log/pathologist/diagnostics/
