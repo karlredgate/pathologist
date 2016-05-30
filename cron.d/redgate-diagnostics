@@ -4,5 +4,5 @@
 MAILTO=root
 
 */2 * * * *  root	/usr/libexec/pathologist/diagnostics/process-diagnostics-queue
-*/5 * * * *  root	/usr/libexec/pathologist/diagnostics/dialin-poll
+# */5 * * * *  root	/usr/libexec/pathologist/diagnostics/dialin-poll
 01 03 * * *  root	/usr/libexec/pathologist/diagnostics/agent_log_cleanup.py
