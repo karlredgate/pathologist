@@ -9,8 +9,8 @@
     exit 1
 }
 
-DIAGDIR=/usr/share/redgate/diagnostics
-SPOOL=/var/spool/redgate/diagnostics
+DIAGDIR=/usr/share/pathologist/diagnostics
+SPOOL=/var/spool/pathologist/diagnostics
 
 # the spool dir will be created by the package, but
 # for now we also create it here - to allow testing.
