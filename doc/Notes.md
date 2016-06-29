@@ -29,6 +29,13 @@ pkgutil --files redx-diagnostics-1.0
 pkgutil --files redx-diagnostics
 ```
 
+Biopsy
+------
+
+Add from ( http://www.chkrootkit.org/ )
+
+ * https://en.wikipedia.org/wiki/Chkrootkit
+
 TODO
 ----
  * how to package for all distros - without library dependencies
@@ -59,8 +66,11 @@ TODO
  * add inotify event diagnostics
  * add rsyslog event diags
 
+ * Add `chkrootkit` diagnosis
+
 IDEAS
 ----
+
  * auto update
  * windows install
  * macos install
